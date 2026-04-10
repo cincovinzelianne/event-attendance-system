@@ -1,0 +1,18 @@
+{
+    "sourceFile": "config/database.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760495890781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760495890781,
+            "name": "Commit-0",
+            "content": "<?php\n// Database configuration\ndefine('DB_HOST', 'localhost');\ndefine('DB_NAME', 'event_attendance');\ndefine('DB_USER', 'root');\ndefine('DB_PASS', '');\n\nclass Database {\n    private $connection;\n    \n    public function __construct() {\n        try {\n            $this->connection = new PDO(\n                \"mysql:host=\" . DB_HOST . \";dbname=\" . DB_NAME . \";charset=utf8mb4\",\n                DB_USER,\n                DB_PASS,\n                [\n                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,\n                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,\n                    PDO::ATTR_EMULATE_PREPARES => false\n                ]\n            );\n        } catch (PDOException $e) {\n            die(\"Database connection failed: \" . $e->getMessage());\n        }\n    }\n    \n    public function getConnection() {\n        return $this->connection;\n    }\n}\n?>\n"
+        }
+    ]
+}

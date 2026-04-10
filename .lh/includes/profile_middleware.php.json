@@ -1,0 +1,18 @@
+{
+    "sourceFile": "includes/profile_middleware.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760508162353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760508162353,
+            "name": "Commit-0",
+            "content": "<?php\n/**\n * Profile Middleware\n * Redirects students with incomplete profiles to profile completion page\n */\n\nfunction checkProfileCompletion($currentUser) {\n    // Check if profile is incomplete\n    if (!$currentUser['profile_completed'] || empty($currentUser['course']) || empty($currentUser['year_level'])) {\n        // Don't redirect if already on profile completion page\n        $currentPage = basename($_SERVER['PHP_SELF']);\n        if ($currentPage !== 'student_profile_completion.php') {\n            header('Location: student_profile_completion.php');\n            exit;\n        }\n    }\n}\n\n/**\n * Check if student can access a specific page\n * @param string $pageName - Name of the page to check\n * @return bool - True if access is allowed, false otherwise\n */\nfunction canAccessPage($pageName, $currentUser) {\n    $restrictedPages = [\n        'qr_code.php',\n        'analytics.php',\n        'verify_qr_uniqueness.php',\n        'qr_scanner_test.php'\n    ];\n    \n    if (in_array($pageName, $restrictedPages)) {\n        return $currentUser['profile_completed'] && !empty($currentUser['course']) && !empty($currentUser['year_level']);\n    }\n    \n    return true;\n}\n?>\n"
+        }
+    ]
+}

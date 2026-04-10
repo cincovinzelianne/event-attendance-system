@@ -1,0 +1,22 @@
+{
+    "sourceFile": "create_missing_tables.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1760496428576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1760496455741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     id INT AUTO_INCREMENT PRIMARY KEY,\n     student_id INT NOT NULL,\n     session_token VARCHAR(255) NOT NULL,\n     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n-    expires_at TIMESTAMP NOT NULL,\n+    expires_at DATETIME NOT NULL,\n     is_active BOOLEAN DEFAULT TRUE,\n     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE\n );\n \n"
+                }
+            ],
+            "date": 1760496428576,
+            "name": "Commit-0",
+            "content": "-- Complete SQL to create all missing tables for the Event Attendance system\n-- Run these commands on your event_attendance database\n\nUSE event_attendance;\n\n-- Create user_sessions table (needed for authentication)\nCREATE TABLE IF NOT EXISTS user_sessions (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    student_id INT NOT NULL,\n    session_token VARCHAR(255) NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    expires_at TIMESTAMP NOT NULL,\n    is_active BOOLEAN DEFAULT TRUE,\n    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE\n);\n\n-- Add QR code columns to students table (if not already added)\nALTER TABLE students \nADD COLUMN IF NOT EXISTS qr_code VARCHAR(255) UNIQUE AFTER year_level,\nADD COLUMN IF NOT EXISTS qr_code_path VARCHAR(500) AFTER qr_code;\n\n-- Create events table for attendance tracking\nCREATE TABLE IF NOT EXISTS events (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    event_name VARCHAR(200) NOT NULL,\n    event_description TEXT,\n    event_date DATE NOT NULL,\n    event_time TIME NOT NULL,\n    location VARCHAR(200),\n    created_by INT,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    is_active BOOLEAN DEFAULT TRUE,\n    FOREIGN KEY (created_by) REFERENCES students(id)\n);\n\n-- Create attendance table\nCREATE TABLE IF NOT EXISTS attendance (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    student_id INT NOT NULL,\n    event_id INT NOT NULL,\n    qr_code_used VARCHAR(255),\n    attendance_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    status ENUM('present', 'late', 'absent') DEFAULT 'present',\n    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,\n    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,\n    UNIQUE KEY unique_attendance (student_id, event_id)\n);\n\n-- Create analytics table for tracking\nCREATE TABLE IF NOT EXISTS analytics (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    student_id INT NOT NULL,\n    action_type VARCHAR(50) NOT NULL,\n    action_data JSON,\n    ip_address VARCHAR(45),\n    user_agent TEXT,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE\n);\n\n-- Add all necessary indexes for better performance\nCREATE INDEX IF NOT EXISTS idx_students_email ON students(email);\nCREATE INDEX IF NOT EXISTS idx_students_student_id ON students(student_id);\nCREATE INDEX IF NOT EXISTS idx_students_qr_code ON students(qr_code);\nCREATE INDEX IF NOT EXISTS idx_sessions_token ON user_sessions(session_token);\nCREATE INDEX IF NOT EXISTS idx_sessions_student ON user_sessions(student_id);\nCREATE INDEX IF NOT EXISTS idx_attendance_student ON attendance(student_id);\nCREATE INDEX IF NOT EXISTS idx_attendance_event ON attendance(event_id);\nCREATE INDEX IF NOT EXISTS idx_analytics_student ON analytics(student_id);\nCREATE INDEX IF NOT EXISTS idx_analytics_type ON analytics(action_type);\n"
+        }
+    ]
+}

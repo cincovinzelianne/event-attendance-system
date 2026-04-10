@@ -1,0 +1,22 @@
+{
+    "sourceFile": "database.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1760495890769,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1760496214249,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,10 @@\n     password VARCHAR(255) NOT NULL,\n     phone VARCHAR(15),\n     course VARCHAR(100),\n     year_level VARCHAR(20),\n+    qr_code VARCHAR(255) UNIQUE NOT NULL,\n+    qr_code_path VARCHAR(500),\n     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n     is_active BOOLEAN DEFAULT TRUE\n );\n@@ -30,9 +32,53 @@\n     is_active BOOLEAN DEFAULT TRUE,\n     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE\n );\n \n+-- Events table for attendance tracking\n+CREATE TABLE events (\n+    id INT AUTO_INCREMENT PRIMARY KEY,\n+    event_name VARCHAR(200) NOT NULL,\n+    event_description TEXT,\n+    event_date DATE NOT NULL,\n+    event_time TIME NOT NULL,\n+    location VARCHAR(200),\n+    created_by INT,\n+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n+    is_active BOOLEAN DEFAULT TRUE,\n+    FOREIGN KEY (created_by) REFERENCES students(id)\n+);\n+\n+-- Attendance table\n+CREATE TABLE attendance (\n+    id INT AUTO_INCREMENT PRIMARY KEY,\n+    student_id INT NOT NULL,\n+    event_id INT NOT NULL,\n+    qr_code_used VARCHAR(255),\n+    attendance_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n+    status ENUM('present', 'late', 'absent') DEFAULT 'present',\n+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,\n+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,\n+    UNIQUE KEY unique_attendance (student_id, event_id)\n+);\n+\n+-- Analytics table for tracking\n+CREATE TABLE analytics (\n+    id INT AUTO_INCREMENT PRIMARY KEY,\n+    student_id INT NOT NULL,\n+    action_type VARCHAR(50) NOT NULL,\n+    action_data JSON,\n+    ip_address VARCHAR(45),\n+    user_agent TEXT,\n+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE\n+);\n+\n -- Indexes for better performance\n CREATE INDEX idx_students_email ON students(email);\n CREATE INDEX idx_students_student_id ON students(student_id);\n+CREATE INDEX idx_students_qr_code ON students(qr_code);\n CREATE INDEX idx_sessions_token ON user_sessions(session_token);\n CREATE INDEX idx_sessions_student ON user_sessions(student_id);\n+CREATE INDEX idx_attendance_student ON attendance(student_id);\n+CREATE INDEX idx_attendance_event ON attendance(event_id);\n+CREATE INDEX idx_analytics_student ON analytics(student_id);\n+CREATE INDEX idx_analytics_type ON analytics(action_type);\n"
+                }
+            ],
+            "date": 1760495890769,
+            "name": "Commit-0",
+            "content": "-- Database: event_attendance\n-- Student Authentication System\n\nCREATE DATABASE IF NOT EXISTS event_attendance;\nUSE event_attendance;\n\n-- Students table\nCREATE TABLE students (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    student_id VARCHAR(20) UNIQUE NOT NULL,\n    first_name VARCHAR(50) NOT NULL,\n    last_name VARCHAR(50) NOT NULL,\n    email VARCHAR(100) UNIQUE NOT NULL,\n    password VARCHAR(255) NOT NULL,\n    phone VARCHAR(15),\n    course VARCHAR(100),\n    year_level VARCHAR(20),\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n    is_active BOOLEAN DEFAULT TRUE\n);\n\n-- Sessions table for login tracking\nCREATE TABLE user_sessions (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    student_id INT NOT NULL,\n    session_token VARCHAR(255) NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    expires_at TIMESTAMP NOT NULL,\n    is_active BOOLEAN DEFAULT TRUE,\n    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE\n);\n\n-- Indexes for better performance\nCREATE INDEX idx_students_email ON students(email);\nCREATE INDEX idx_students_student_id ON students(student_id);\nCREATE INDEX idx_sessions_token ON user_sessions(session_token);\nCREATE INDEX idx_sessions_student ON user_sessions(student_id);\n"
+        }
+    ]
+}

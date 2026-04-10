@@ -1,0 +1,18 @@
+{
+    "sourceFile": "test_profile_status.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760509223475,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760509223475,
+            "name": "Commit-0",
+            "content": "<?php\nrequire_once 'includes/auth.php';\n\n$auth = new Auth();\n$currentUser = $auth->getCurrentUser();\n\nif (!$currentUser) {\n    header('Location: signin.php');\n    exit;\n}\n\necho \"<h2>Profile Status Debug</h2>\";\necho \"<p><strong>Profile Completed:</strong> \" . (isset($currentUser['profile_completed']) ? $currentUser['profile_completed'] : 'Not set') . \"</p>\";\necho \"<p><strong>Course:</strong> \" . ($currentUser['course'] ?: 'Not set') . \"</p>\";\necho \"<p><strong>Year Level:</strong> \" . ($currentUser['year_level'] ?: 'Not set') . \"</p>\";\necho \"<p><strong>Profile Completed At:</strong> \" . (isset($currentUser['profile_completed_at']) ? $currentUser['profile_completed_at'] : 'Not set') . \"</p>\";\n\n$profileCompleted = isset($currentUser['profile_completed']) ? $currentUser['profile_completed'] : 0;\n$hasCourse = !empty($currentUser['course']);\n$hasYearLevel = !empty($currentUser['year_level']);\n\necho \"<h3>Status Check:</h3>\";\necho \"<p>Profile Completed: \" . ($profileCompleted ? 'YES' : 'NO') . \"</p>\";\necho \"<p>Has Course: \" . ($hasCourse ? 'YES' : 'NO') . \"</p>\";\necho \"<p>Has Year Level: \" . ($hasYearLevel ? 'YES' : 'NO') . \"</p>\";\n\nif (!$profileCompleted || !$hasCourse || !$hasYearLevel) {\n    echo \"<p style='color: red;'><strong>Profile is INCOMPLETE - Banner should show</strong></p>\";\n} else {\n    echo \"<p style='color: green;'><strong>Profile is COMPLETE - Banner should be hidden</strong></p>\";\n}\n\necho \"<br><a href='dashboard.php'>Go to Dashboard</a>\";\n?>\n"
+        }
+    ]
+}

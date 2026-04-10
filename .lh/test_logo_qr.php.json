@@ -1,0 +1,22 @@
+{
+    "sourceFile": "test_logo_qr.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1760497322678,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1760497607788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,15 +3,25 @@\n require_once 'includes/auth.php';\n \n echo \"<h2>Test QR Code with LLCC Logo</h2>\";\n \n-// Check if logo exists\n-$logoPath = 'llcc-logo.jpeg';\n-if (file_exists($logoPath)) {\n+// Check if logo exists in multiple formats\n+$logoPaths = ['llcc-logo.jpeg', 'llcc-logo.png', 'llcc-logo.jpg'];\n+$logoPath = null;\n+\n+foreach ($logoPaths as $path) {\n+    if (file_exists($path)) {\n+        $logoPath = $path;\n+        break;\n+    }\n+}\n+\n+if ($logoPath) {\n     echo \"✅ LLCC logo found: $logoPath<br>\";\n     echo \"Logo size: \" . filesize($logoPath) . \" bytes<br>\";\n+    echo \"Logo format: \" . strtoupper(pathinfo($logoPath, PATHINFO_EXTENSION)) . \"<br>\";\n } else {\n-    echo \"❌ LLCC logo not found at: $logoPath<br>\";\n+    echo \"❌ LLCC logo not found. Tried: \" . implode(', ', $logoPaths) . \"<br>\";\n     echo \"Please make sure the logo file is in the project root directory.<br>\";\n }\n \n // Test QR code generation with logo\n"
+                }
+            ],
+            "date": 1760497322678,
+            "name": "Commit-0",
+            "content": "<?php\n// Test script to generate QR code with LLCC logo\nrequire_once 'includes/auth.php';\n\necho \"<h2>Test QR Code with LLCC Logo</h2>\";\n\n// Check if logo exists\n$logoPath = 'llcc-logo.jpeg';\nif (file_exists($logoPath)) {\n    echo \"✅ LLCC logo found: $logoPath<br>\";\n    echo \"Logo size: \" . filesize($logoPath) . \" bytes<br>\";\n} else {\n    echo \"❌ LLCC logo not found at: $logoPath<br>\";\n    echo \"Please make sure the logo file is in the project root directory.<br>\";\n}\n\n// Test QR code generation with logo\ntry {\n    $qrGenerator = new QRGenerator();\n    $result = $qrGenerator->generateQRCode('TEST123', 'John', 'Doe', 'john.doe@llcc.edu.ph');\n    \n    if (isset($result['error'])) {\n        echo \"❌ Error: \" . $result['error'] . \"<br>\";\n    } else {\n        echo \"✅ QR Code generated: \" . $result['qr_code'] . \"<br>\";\n        echo \"✅ QR Path: \" . ($result['qr_url'] ?: 'NULL') . \"<br>\";\n        \n        if ($result['qr_url'] && file_exists($result['qr_url'])) {\n            echo \"✅ QR file exists: \" . filesize($result['qr_url']) . \" bytes<br>\";\n            echo \"<h3>QR Code with LLCC Logo:</h3>\";\n            echo \"<img src='\" . $result['qr_url'] . \"' style='max-width: 300px; border: 2px solid #ccc;'><br>\";\n            \n            // Test if the QR code is still scannable\n            echo \"<h3>QR Code Test:</h3>\";\n            echo \"Try scanning this QR code with your phone to verify it still works with the logo embedded.<br>\";\n        } else {\n            echo \"❌ QR file does not exist<br>\";\n        }\n    }\n} catch (Exception $e) {\n    echo \"❌ Exception: \" . $e->getMessage() . \"<br>\";\n}\n\necho \"<br><a href='force_generate_qr.php'>Regenerate All QR Codes with Logo</a> | <a href='qr_code.php'>My QR Code</a>\";\n?>\n"
+        }
+    ]
+}

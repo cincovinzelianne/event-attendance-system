@@ -1,0 +1,18 @@
+{
+    "sourceFile": "admin_logout.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760498598897,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760498598897,
+            "name": "Commit-0",
+            "content": "<?php\nrequire_once 'includes/admin_auth.php';\n\n$adminAuth = new AdminAuth();\n$adminAuth->logout();\n\nheader('Location: admin_signin.php?logged_out=1');\nexit;\n?>\n"
+        }
+    ]
+}

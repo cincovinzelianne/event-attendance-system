@@ -1,0 +1,22 @@
+{
+    "sourceFile": "create_admin_table.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1760498130845,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1760498158534,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,34 +1,1 @@\n--- Add admin table to the event_attendance database\n-USE event_attendance;\n-\n--- Admins table\n-CREATE TABLE admins (\n-    id INT AUTO_INCREMENT PRIMARY KEY,\n-    admin_id VARCHAR(20) UNIQUE NOT NULL,\n-    first_name VARCHAR(50) NOT NULL,\n-    last_name VARCHAR(50) NOT NULL,\n-    email VARCHAR(100) UNIQUE NOT NULL,\n-    password VARCHAR(255) NOT NULL,\n-    department VARCHAR(100) NOT NULL,\n-    position VARCHAR(100) NOT NULL,\n-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n-    is_active BOOLEAN DEFAULT TRUE\n-);\n-\n--- Admin sessions table for login tracking\n-CREATE TABLE admin_sessions (\n-    id INT AUTO_INCREMENT PRIMARY KEY,\n-    admin_id INT NOT NULL,\n-    session_token VARCHAR(255) NOT NULL,\n-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n-    expires_at TIMESTAMP NOT NULL,\n-    is_active BOOLEAN DEFAULT TRUE,\n-    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE CASCADE\n-);\n-\n--- Indexes for better performance\n-CREATE INDEX idx_admins_email ON admins(email);\n-CREATE INDEX idx_admins_admin_id ON admins(admin_id);\n-CREATE INDEX idx_admin_sessions_token ON admin_sessions(session_token);\n-CREATE INDEX idx_admin_sessions_admin ON admin_sessions(admin_id);\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1760498130845,
+            "name": "Commit-0",
+            "content": "-- Add admin table to the event_attendance database\nUSE event_attendance;\n\n-- Admins table\nCREATE TABLE admins (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    admin_id VARCHAR(20) UNIQUE NOT NULL,\n    first_name VARCHAR(50) NOT NULL,\n    last_name VARCHAR(50) NOT NULL,\n    email VARCHAR(100) UNIQUE NOT NULL,\n    password VARCHAR(255) NOT NULL,\n    department VARCHAR(100) NOT NULL,\n    position VARCHAR(100) NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n    is_active BOOLEAN DEFAULT TRUE\n);\n\n-- Admin sessions table for login tracking\nCREATE TABLE admin_sessions (\n    id INT AUTO_INCREMENT PRIMARY KEY,\n    admin_id INT NOT NULL,\n    session_token VARCHAR(255) NOT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n    expires_at TIMESTAMP NOT NULL,\n    is_active BOOLEAN DEFAULT TRUE,\n    FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE CASCADE\n);\n\n-- Indexes for better performance\nCREATE INDEX idx_admins_email ON admins(email);\nCREATE INDEX idx_admins_admin_id ON admins(admin_id);\nCREATE INDEX idx_admin_sessions_token ON admin_sessions(session_token);\nCREATE INDEX idx_admin_sessions_admin ON admin_sessions(admin_id);\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "add_attendance_locked_column.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1769494984478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1769494984478,
+            "name": "Commit-0",
+            "content": "-- SQL to add attendance_locked column to events table (SAFE VERSION)\n-- This column allows administrators to lock/unlock attendance sheets\n-- This script checks if the column exists before adding it to avoid errors\n\nUSE event_attendance;\n\n-- Method 1: Using a stored procedure (recommended - handles check automatically)\nDELIMITER $$\n\nDROP PROCEDURE IF EXISTS AddAttendanceLockedColumn$$\n\nCREATE PROCEDURE AddAttendanceLockedColumn()\nBEGIN\n    DECLARE column_exists INT DEFAULT 0;\n    \n    -- Check if the column exists\n    SELECT COUNT(*) INTO column_exists\n    FROM INFORMATION_SCHEMA.COLUMNS\n    WHERE TABLE_SCHEMA = DATABASE()\n    AND TABLE_NAME = 'events'\n    AND COLUMN_NAME = 'attendance_locked';\n    \n    -- Add column only if it doesn't exist\n    IF column_exists = 0 THEN\n        ALTER TABLE events \n        ADD COLUMN attendance_locked TINYINT(1) DEFAULT 0 \n        COMMENT 'Lock status for attendance sheet: 0 = unlocked, 1 = locked';\n        \n        SELECT 'Column attendance_locked added successfully!' AS Result;\n    ELSE\n        SELECT 'Column attendance_locked already exists. No changes made.' AS Result;\n    END IF;\nEND$$\n\nDELIMITER ;\n\n-- Execute the procedure\nCALL AddAttendanceLockedColumn();\n\n-- Drop the procedure after use\nDROP PROCEDURE IF EXISTS AddAttendanceLockedColumn;\n\n-- Optional: Add an index for better query performance (only if it doesn't exist)\nSET @index_exists = (\n    SELECT COUNT(*) \n    FROM INFORMATION_SCHEMA.STATISTICS \n    WHERE TABLE_SCHEMA = DATABASE()\n    AND TABLE_NAME = 'events' \n    AND INDEX_NAME = 'idx_attendance_locked'\n);\n\nSET @sql = IF(@index_exists = 0,\n    'CREATE INDEX idx_attendance_locked ON events(attendance_locked)',\n    'SELECT \"Index idx_attendance_locked already exists. No changes made.\" AS Result'\n);\n\nPREPARE stmt FROM @sql;\nEXECUTE stmt;\nDEALLOCATE PREPARE stmt;\n\n-- ============================================\n-- Method 2: Manual check (if you prefer)\n-- ============================================\n-- First, run this query to check if column exists:\n-- SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS \n-- WHERE TABLE_SCHEMA = 'event_attendance' \n-- AND TABLE_NAME = 'events' \n-- AND COLUMN_NAME = 'attendance_locked';\n--\n-- If the query returns empty (no rows), then run:\n-- ALTER TABLE events \n-- ADD COLUMN attendance_locked TINYINT(1) DEFAULT 0 \n-- COMMENT 'Lock status for attendance sheet: 0 = unlocked, 1 = locked';\n\n-- Verify the column was added\n-- SELECT COLUMN_NAME, DATA_TYPE, COLUMN_DEFAULT, COLUMN_COMMENT \n-- FROM INFORMATION_SCHEMA.COLUMNS \n-- WHERE TABLE_SCHEMA = 'event_attendance' \n-- AND TABLE_NAME = 'events' \n-- AND COLUMN_NAME = 'attendance_locked';\n"
+        }
+    ]
+}

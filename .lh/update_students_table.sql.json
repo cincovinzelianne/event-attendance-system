@@ -1,0 +1,18 @@
+{
+    "sourceFile": "update_students_table.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760508162352,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760508162352,
+            "name": "Commit-0",
+            "content": "-- Add profile completion fields to students table\nALTER TABLE students \nADD COLUMN profile_completed TINYINT(1) DEFAULT 0,\nADD COLUMN profile_completed_at TIMESTAMP NULL;\n\n-- Update existing students to mark them as having incomplete profiles if they don't have course/year_level\nUPDATE students \nSET profile_completed = 0 \nWHERE course IS NULL OR course = '' OR year_level IS NULL OR year_level = '';\n\n-- Mark students with complete course and year_level as having completed profiles\nUPDATE students \nSET profile_completed = 1, profile_completed_at = NOW() \nWHERE course IS NOT NULL AND course != '' AND year_level IS NOT NULL AND year_level != '';\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "test_qr_simple.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760496768973,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760496768973,
+            "name": "Commit-0",
+            "content": "<?php\n// Simple QR code test\necho \"<h2>Simple QR Code Test</h2>\";\n\n// Test 1: Direct API test\n$testData = \"STU_test123\";\n$size = \"300x300\";\n\n$apis = [\n    \"Google Charts\" => \"https://chart.googleapis.com/chart?chs={$size}&cht=qr&chl={$testData}\",\n    \"QR Server\" => \"https://api.qrserver.com/v1/create-qr-code/?size={$size}&data={$testData}\",\n    \"QuickChart\" => \"https://quickchart.io/qr?text={$testData}&size={$size}\"\n];\n\nforeach ($apis as $name => $url) {\n    echo \"<h3>Testing $name</h3>\";\n    echo \"URL: <a href='$url' target='_blank'>$url</a><br>\";\n    \n    $context = stream_context_create([\n        'http' => [\n            'timeout' => 10,\n            'user_agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'\n        ]\n    ]);\n    \n    $imageData = @file_get_contents($url, false, $context);\n    \n    if ($imageData !== false && strlen($imageData) > 0) {\n        echo \"✅ Success: Got \" . strlen($imageData) . \" bytes<br>\";\n        \n        // Save test image\n        $filename = \"test_qr_\" . strtolower(str_replace(' ', '_', $name)) . \".png\";\n        if (file_put_contents($filename, $imageData)) {\n            echo \"✅ Saved as: $filename<br>\";\n            echo \"<img src='$filename' style='max-width: 200px; border: 1px solid #ccc;'><br>\";\n        } else {\n            echo \"❌ Failed to save file<br>\";\n        }\n    } else {\n        echo \"❌ Failed to get image data<br>\";\n    }\n    echo \"<br>\";\n}\n\n// Test 2: Check if we can create the directory and write files\necho \"<h3>Directory Test</h3>\";\n$qrDir = 'assets/qr_codes/';\nif (!file_exists($qrDir)) {\n    if (mkdir($qrDir, 0755, true)) {\n        echo \"✅ Created directory: $qrDir<br>\";\n    } else {\n        echo \"❌ Failed to create directory: $qrDir<br>\";\n    }\n} else {\n    echo \"✅ Directory exists: $qrDir<br>\";\n}\n\nif (is_writable($qrDir)) {\n    echo \"✅ Directory is writable<br>\";\n} else {\n    echo \"❌ Directory is not writable<br>\";\n}\n\n// Test 3: Try to generate a QR code using our class\necho \"<h3>Class Test</h3>\";\ntry {\n    require_once 'includes/qr_generator.php';\n    $qrGenerator = new QRGenerator();\n    $result = $qrGenerator->generateQRCode('TEST123', 'John', 'Doe', 'john.doe@llcc.edu.ph');\n    \n    if (isset($result['error'])) {\n        echo \"❌ Error: \" . $result['error'] . \"<br>\";\n    } else {\n        echo \"✅ QR Code: \" . $result['qr_code'] . \"<br>\";\n        echo \"✅ QR URL: \" . ($result['qr_url'] ?: 'NULL') . \"<br>\";\n        \n        if ($result['qr_url'] && file_exists($result['qr_url'])) {\n            echo \"✅ QR file exists and is \" . filesize($result['qr_url']) . \" bytes<br>\";\n            echo \"<img src='\" . $result['qr_url'] . \"' style='max-width: 200px; border: 1px solid #ccc;'><br>\";\n        } else {\n            echo \"❌ QR file does not exist<br>\";\n        }\n    }\n} catch (Exception $e) {\n    echo \"❌ Exception: \" . $e->getMessage() . \"<br>\";\n}\n\necho \"<br><a href='debug_qr.php'>Back to Debug</a>\";\n?>\n"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "fix_profile_completion_status.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760508442957,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760508442957,
+            "name": "Commit-0",
+            "content": "-- Update existing students to have correct profile_completed status\n-- Mark students with complete course and year_level as having completed profiles\nUPDATE students \nSET profile_completed = 1, profile_completed_at = NOW() \nWHERE course IS NOT NULL AND course != '' AND year_level IS NOT NULL AND year_level != '';\n\n-- Mark students with incomplete course or year_level as having incomplete profiles\nUPDATE students \nSET profile_completed = 0 \nWHERE course IS NULL OR course = '' OR year_level IS NULL OR year_level = '';\n"
+        }
+    ]
+}

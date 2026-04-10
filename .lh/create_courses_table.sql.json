@@ -1,0 +1,22 @@
+{
+    "sourceFile": "create_courses_table.sql",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1760506490203,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1760506958001,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,24 @@\n- \n\\ No newline at end of file\n+-- Create courses table for hierarchical course management\n+CREATE TABLE IF NOT EXISTS courses (\n+    id INT(11) NOT NULL AUTO_INCREMENT,\n+    department VARCHAR(100) NOT NULL,\n+    course_name VARCHAR(100) NOT NULL,\n+    major VARCHAR(100) DEFAULT NULL,\n+    year_levels JSON NOT NULL,\n+    is_active TINYINT(1) DEFAULT 1,\n+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n+    PRIMARY KEY (id),\n+    UNIQUE KEY unique_course (department, course_name, major)\n+);\n+\n+-- Insert sample data\n+INSERT INTO courses (department, course_name, major, year_levels) VALUES\n+('DEPARTMENT OF EDUCATION', 'COED', 'EDUCATION MAJOR IN ENGLISH', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF EDUCATION', 'COED', 'EDUCATION MAJOR IN MATHEMATICS', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF EDUCATION', 'COED', 'EDUCATION MAJOR IN SCIENCE', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF INFORMATION TECHNOLOGY', 'BSIT', 'INFORMATION TECHNOLOGY', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF INFORMATION TECHNOLOGY', 'BSCS', 'COMPUTER SCIENCE', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF BUSINESS ADMINISTRATION', 'BSBA', 'BUSINESS ADMINISTRATION', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF BUSINESS ADMINISTRATION', 'BSBA', 'MARKETING', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]'),\n+('DEPARTMENT OF NURSING', 'BSN', 'NURSING', '[\"1st Year\", \"2nd Year\", \"3rd Year\", \"4th Year\"]');\n"
+                }
+            ],
+            "date": 1760506490203,
+            "name": "Commit-0",
+            "content": " "
+        }
+    ]
+}

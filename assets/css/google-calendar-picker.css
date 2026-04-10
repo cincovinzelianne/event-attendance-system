@@ -1,0 +1,413 @@
+/* Google Calendar Style Date/Time Picker */
+
+.google-calendar-picker {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+}
+
+.picker-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 48px;
+}
+
+.picker-input:hover {
+    border-color: #1a73e8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.picker-input:focus-within {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.input-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.input-content i {
+    color: #5f6368;
+    font-size: 16px;
+}
+
+.date-text {
+    font-size: 14px;
+    color: #3c4043;
+    font-weight: 400;
+}
+
+.time-text {
+    font-size: 14px;
+    color: #5f6368;
+    font-weight: 400;
+}
+
+.input-arrow {
+    color: #5f6368;
+    transition: transform 0.2s ease;
+}
+
+.picker-input.open .input-arrow {
+    transform: rotate(180deg);
+}
+
+.picker-dropdown {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    z-index: 10000;
+    display: none;
+    min-width: 320px;
+    max-width: 400px;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.picker-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: none;
+    animation: backdropFadeIn 0.3s ease-out;
+}
+
+@keyframes backdropFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #e8eaed;
+    background: #f8f9fa;
+    border-radius: 12px 12px 0 0;
+}
+
+.picker-header .close-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #5f6368;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: auto;
+}
+
+.picker-header .close-btn:hover {
+    background: #e8eaed;
+    color: #1a73e8;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #5f6368;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.nav-btn:hover {
+    background: #f1f3f4;
+    color: #1a73e8;
+}
+
+.current-month {
+    font-size: 16px;
+    font-weight: 500;
+    color: #3c4043;
+}
+
+.picker-body {
+    padding: 16px;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.weekday {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #5f6368;
+    padding: 8px 4px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    min-height: 240px; /* Ensure enough space for 6 weeks */
+}
+
+.calendar-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    color: #3c4043;
+    transition: all 0.2s ease;
+    margin: 0 auto;
+    min-width: 32px;
+    min-height: 32px;
+    text-align: center;
+    line-height: 32px;
+    font-weight: 400;
+    background: transparent;
+}
+
+.calendar-day:hover {
+    background: #f1f3f4;
+}
+
+.calendar-day.today {
+    background: #e8f0fe;
+    color: #1a73e8;
+    font-weight: 500;
+}
+
+.calendar-day.selected {
+    background: #1a73e8;
+    color: white;
+    font-weight: 500;
+}
+
+.calendar-day.disabled {
+    color: #dadce0;
+    cursor: not-allowed;
+}
+
+.calendar-day.disabled:hover {
+    background: none;
+}
+
+.calendar-day.other-month {
+    cursor: default;
+    color: #dadce0 !important;
+}
+
+.calendar-day.other-month:hover {
+    background: none;
+}
+
+.calendar-day.empty {
+    cursor: default;
+}
+
+.calendar-day.empty:hover {
+    background: none;
+}
+
+.picker-footer {
+    padding: 20px 24px;
+    border-top: 1px solid #e8eaed;
+    background: #f8f9fa;
+    border-radius: 0 0 12px 12px;
+}
+
+.time-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.time-section label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c4043;
+}
+
+.time-inputs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.time-input {
+    width: 50px;
+    padding: 6px 8px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+    color: #3c4043;
+}
+
+.time-input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+.time-separator {
+    font-size: 16px;
+    color: #5f6368;
+    font-weight: 500;
+}
+
+.picker-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-cancel,
+.btn-ok {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel {
+    background: #f1f3f4;
+    color: #3c4043;
+}
+
+.btn-cancel:hover {
+    background: #e8eaed;
+}
+
+.btn-ok {
+    background: #1a73e8;
+    color: white;
+}
+
+.btn-ok:hover {
+    background: #1557b0;
+}
+
+/* Modal Enhancements */
+.picker-dropdown.show {
+    display: block;
+}
+
+.picker-backdrop.show {
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .picker-dropdown {
+        min-width: 280px;
+        max-width: 90vw;
+        margin: 20px;
+    }
+    
+    .calendar-day {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    
+    .picker-header {
+        padding: 16px 20px 12px;
+    }
+    
+    .picker-body {
+        padding: 12px 20px;
+    }
+    
+    .picker-footer {
+        padding: 16px 20px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .picker-input {
+        background: #3c4043;
+        border-color: #5f6368;
+        color: white;
+    }
+    
+    .picker-dropdown {
+        background: #3c4043;
+        border-color: #5f6368;
+    }
+    
+    .date-text,
+    .time-text {
+        color: white;
+    }
+    
+    .calendar-day {
+        color: white;
+    }
+    
+    .calendar-day:hover {
+        background: #5f6368;
+    }
+    
+    .calendar-day.today {
+        background: #1a73e8;
+        color: white;
+    }
+    
+    .time-input {
+        background: #5f6368;
+        border-color: #5f6368;
+        color: white;
+    }
+}

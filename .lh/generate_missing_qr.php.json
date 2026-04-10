@@ -1,0 +1,18 @@
+{
+    "sourceFile": "generate_missing_qr.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760496528731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760496528731,
+            "name": "Commit-0",
+            "content": "<?php\n// Script to generate QR codes for students who don't have them\nrequire_once 'includes/auth.php';\n\n$auth = new Auth();\n$database = new Database();\n$db = $database->getConnection();\n\necho \"<h2>Generate Missing QR Codes</h2>\";\n\ntry {\n    // Find students without QR codes\n    $stmt = $db->prepare(\"\n        SELECT id, student_id, first_name, last_name, email \n        FROM students \n        WHERE (qr_code IS NULL OR qr_code = '') \n        AND is_active = 1\n    \");\n    $stmt->execute();\n    $students = $stmt->fetchAll();\n    \n    echo \"Found \" . count($students) . \" students without QR codes.<br><br>\";\n    \n    if (count($students) > 0) {\n        $qrGenerator = new QRGenerator();\n        $successCount = 0;\n        $errorCount = 0;\n        \n        foreach ($students as $student) {\n            echo \"Processing: \" . $student['first_name'] . \" \" . $student['last_name'] . \" (ID: \" . $student['student_id'] . \")<br>\";\n            \n            try {\n                // Generate QR code\n                $qrResult = $qrGenerator->generateQRCode(\n                    $student['student_id'], \n                    $student['first_name'], \n                    $student['last_name'], \n                    $student['email']\n                );\n                \n                if (isset($qrResult['error'])) {\n                    echo \"  Error: \" . $qrResult['error'] . \"<br>\";\n                    $errorCount++;\n                } else {\n                    // Update student record with QR code\n                    $updateStmt = $db->prepare(\"\n                        UPDATE students \n                        SET qr_code = ?, qr_code_path = ? \n                        WHERE id = ?\n                    \");\n                    \n                    $result = $updateStmt->execute([\n                        $qrResult['qr_code'],\n                        $qrResult['qr_url'],\n                        $student['id']\n                    ]);\n                    \n                    if ($result) {\n                        echo \"  Success: QR code generated and saved<br>\";\n                        echo \"  QR Code: \" . $qrResult['qr_code'] . \"<br>\";\n                        echo \"  QR Path: \" . $qrResult['qr_url'] . \"<br>\";\n                        $successCount++;\n                    } else {\n                        echo \"  Error: Failed to update database<br>\";\n                        $errorCount++;\n                    }\n                }\n            } catch (Exception $e) {\n                echo \"  Exception: \" . $e->getMessage() . \"<br>\";\n                $errorCount++;\n            }\n            \n            echo \"<br>\";\n        }\n        \n        echo \"<h3>Summary</h3>\";\n        echo \"Successfully processed: $successCount<br>\";\n        echo \"Errors: $errorCount<br>\";\n        \n    } else {\n        echo \"All students already have QR codes!<br>\";\n    }\n    \n} catch (Exception $e) {\n    echo \"Error: \" . $e->getMessage() . \"<br>\";\n}\n\necho \"<br><a href='dashboard.php'>Back to Dashboard</a>\";\n?>\n"
+        }
+    ]
+}

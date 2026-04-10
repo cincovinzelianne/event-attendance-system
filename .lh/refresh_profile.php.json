@@ -1,0 +1,18 @@
+{
+    "sourceFile": "refresh_profile.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1760509408529,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1760509408529,
+            "name": "Commit-0",
+            "content": "<?php\nrequire_once 'includes/auth.php';\n\n$auth = new Auth();\n$currentUser = $auth->getCurrentUser();\n\nif (!$currentUser) {\n    header('Location: signin.php');\n    exit;\n}\n\n// Force refresh user data from database\ntry {\n    $database = new Database();\n    $db = $database->getConnection();\n    $stmt = $db->prepare(\"SELECT * FROM students WHERE id = ?\");\n    $stmt->execute([$currentUser['id']]);\n    $freshUserData = $stmt->fetch(PDO::FETCH_ASSOC);\n    \n    if ($freshUserData) {\n        // Update session with fresh data\n        $_SESSION['user'] = $freshUserData;\n        echo \"Profile data refreshed successfully!<br>\";\n        echo \"Profile Completed: \" . ($freshUserData['profile_completed'] ? 'YES' : 'NO') . \"<br>\";\n        echo \"Course: \" . ($freshUserData['course'] ?: 'Not set') . \"<br>\";\n        echo \"Year Level: \" . ($freshUserData['year_level'] ?: 'Not set') . \"<br>\";\n    }\n} catch (Exception $e) {\n    echo \"Error: \" . $e->getMessage();\n}\n\necho \"<br><a href='dashboard.php'>Go to Dashboard</a>\";\n?>\n"
+        }
+    ]
+}
