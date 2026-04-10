@@ -19,7 +19,7 @@
             <h3 class="mb-2 font-medium text-white">Attendance Integrity</h3>
             <p class="mb-4 text-sm text-slate-300">Run command: <span class="font-mono">php artisan app:verify-attendance-integrity</span></p>
             @if ($integrityIssues->isEmpty())
-                <p class="text-sm text-emerald-300">No duplicate attendance entries detected.</p>
+                <p class="text-sm text-blue-200">No duplicate attendance entries detected.</p>
             @else
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-white/10 text-sm">

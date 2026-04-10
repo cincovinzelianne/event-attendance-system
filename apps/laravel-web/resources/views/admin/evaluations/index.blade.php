@@ -42,7 +42,7 @@
                                         <button type="submit" class="text-yellow-300 transition hover:text-yellow-100">Mark Submitted</button>
                                     </form>
                                 @else
-                                    <span class="text-emerald-300">Complete</span>
+                                    <span class="text-blue-200">Complete</span>
                                 @endif
                             </td>
                         </tr>

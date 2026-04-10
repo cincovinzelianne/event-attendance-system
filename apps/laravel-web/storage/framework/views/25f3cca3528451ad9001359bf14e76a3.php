@@ -1,16 +1,47 @@
-@props([
+<?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
+
+$__newAttributes = [];
+$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames(([
     'title' => 'Admin Page',
     'subtitle' => null,
-])
+]));
+
+foreach ($attributes->all() as $__key => $__value) {
+    if (in_array($__key, $__propNames)) {
+        $$__key = $$__key ?? $__value;
+    } else {
+        $__newAttributes[$__key] = $__value;
+    }
+}
+
+$attributes = new \Illuminate\View\ComponentAttributeBag($__newAttributes);
+
+unset($__propNames);
+unset($__newAttributes);
+
+foreach (array_filter(([
+    'title' => 'Admin Page',
+    'subtitle' => null,
+]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
+    $$__key = $$__key ?? $__value;
+}
+
+$__defined_vars = get_defined_vars();
+
+foreach ($attributes->all() as $__key => $__value) {
+    if (array_key_exists($__key, $__defined_vars)) unset($$__key);
+}
+
+unset($__defined_vars, $__key, $__value); ?>
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-        <title>{{ config('app.name', 'Event Attendance System') }} | {{ $title }}</title>
+        <title><?php echo e(config('app.name', 'Event Attendance System')); ?> | <?php echo e($title); ?></title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700|fraunces:500,700" rel="stylesheet" />
@@ -246,7 +277,7 @@
             }
 
         </style>
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     </head>
     <body class="theme-admin-light min-h-screen bg-blue-950 font-sans text-slate-100 antialiased">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_15%_4%,_rgba(91,131,246,0.16),_transparent_30%),radial-gradient(circle_at_85%_0%,_rgba(143,88,238,0.14),_transparent_24%),linear-gradient(180deg,#f4f5ff_0%,#eceffd_100%)]"></div>
@@ -255,7 +286,7 @@
             <aside class="sidebar-shell border-b border-white/10 bg-blue-950/85 backdrop-blur-xl lg:fixed lg:inset-y-0 lg:left-0 lg:w-80 lg:shrink-0 lg:border-b-0 lg:border-r lg:overflow-hidden">
                 <div class="flex h-full flex-col">
                     <div class="border-b border-white/10 px-6 py-6">
-                        <a href="{{ route('admin.dashboard') }}" class="inline-flex items-center gap-3">
+                        <a href="<?php echo e(route('admin.dashboard')); ?>" class="inline-flex items-center gap-3">
                             <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-yellow-400/20 text-sm font-semibold tracking-[0.2em] text-yellow-200">
                                 EA
                             </div>
@@ -269,7 +300,7 @@
                     <nav class="flex-1 min-h-0 px-4 py-5">
                         <p class="px-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-400">Navigation</p>
 
-                        @php
+                        <?php
                             $navSections = [
                                 [
                                     'title' => null,
@@ -300,26 +331,26 @@
                                     ],
                                 ],
                             ];
-                        @endphp
+                        ?>
 
                         <div class="mt-5 space-y-8">
-                            @foreach ($navSections as $section)
+                            <?php $__currentLoopData = $navSections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <section>
-                                    @if (! empty($section['title']))
-                                        <p class="nav-section-title">{{ $section['title'] }}</p>
-                                    @endif
-                                    <div class="{{ ! empty($section['title']) ? 'mt-2.5' : 'mt-1' }} space-y-1.5">
-                                        @foreach ($section['items'] as $item)
-                                            @php
+                                    <?php if(! empty($section['title'])): ?>
+                                        <p class="nav-section-title"><?php echo e($section['title']); ?></p>
+                                    <?php endif; ?>
+                                    <div class="<?php echo e(! empty($section['title']) ? 'mt-2.5' : 'mt-1'); ?> space-y-1.5">
+                                        <?php $__currentLoopData = $section['items']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php
                                                 $isActive = request()->routeIs($item['pattern']);
-                                            @endphp
-                                            <a href="{{ route($item['route']) }}" class="nav-item {{ $isActive ? 'nav-item-active' : 'nav-item-inactive' }}">
-                                                <span>{{ $item['label'] }}</span>
+                                            ?>
+                                            <a href="<?php echo e(route($item['route'])); ?>" class="nav-item <?php echo e($isActive ? 'nav-item-active' : 'nav-item-inactive'); ?>">
+                                                <span><?php echo e($item['label']); ?></span>
                                             </a>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </section>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </nav>
 
@@ -338,12 +369,12 @@
                             </div>
                             <div class="mt-4 border-t border-white/10 pt-4">
                                 <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Signed in as</p>
-                                <p class="mt-2 text-sm font-semibold text-white">{{ auth()->user()->name }}</p>
-                                <p class="mt-1 text-xs text-slate-400">{{ auth()->user()->email }}</p>
+                                <p class="mt-2 text-sm font-semibold text-white"><?php echo e(auth()->user()->name); ?></p>
+                                <p class="mt-1 text-xs text-slate-400"><?php echo e(auth()->user()->email); ?></p>
                                 <div class="mt-4 flex items-center gap-2">
-                                    <a href="{{ route('landing') }}" class="rounded-lg border border-white/15 px-3 py-2 text-xs font-medium text-slate-200 transition hover:bg-white/10">Landing</a>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
+                                    <a href="<?php echo e(route('landing')); ?>" class="rounded-lg border border-white/15 px-3 py-2 text-xs font-medium text-slate-200 transition hover:bg-white/10">Landing</a>
+                                    <form method="POST" action="<?php echo e(route('logout')); ?>">
+                                        <?php echo csrf_field(); ?>
                                         <button type="submit" class="rounded-lg bg-yellow-500/90 px-3 py-2 text-xs font-semibold text-white transition hover:bg-yellow-500">
                                             Logout
                                         </button>
@@ -359,26 +390,30 @@
                 <header class="mb-8 flex flex-wrap items-end justify-between gap-5">
                     <div>
                         <p class="text-xs uppercase tracking-[0.3em] text-yellow-200/70">Control Center</p>
-                        <h1 class="mt-2 font-['Fraunces'] text-4xl leading-tight text-white sm:text-5xl">{{ $title }}</h1>
-                        @if ($subtitle)
-                            <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300">{{ $subtitle }}</p>
-                        @endif
+                        <h1 class="mt-2 font-['Fraunces'] text-4xl leading-tight text-white sm:text-5xl"><?php echo e($title); ?></h1>
+                        <?php if($subtitle): ?>
+                            <p class="mt-3 max-w-2xl text-sm leading-7 text-slate-300"><?php echo e($subtitle); ?></p>
+                        <?php endif; ?>
                     </div>
-                    @isset($actions)
+                    <?php if(isset($actions)): ?>
                         <div class="flex flex-wrap gap-3">
-                            {{ $actions }}
+                            <?php echo e($actions); ?>
+
                         </div>
-                    @endisset
+                    <?php endif; ?>
                 </header>
 
-                @if (session('status'))
+                <?php if(session('status')): ?>
                     <div class="mb-6 rounded-xl border border-blue-300/30 bg-blue-700/25 px-4 py-3 text-sm text-blue-100">
-                        {{ session('status') }}
-                    </div>
-                @endif
+                        <?php echo e(session('status')); ?>
 
-                {{ $slot }}
+                    </div>
+                <?php endif; ?>
+
+                <?php echo e($slot); ?>
+
             </main>
         </div>
     </body>
 </html>
+<?php /**PATH C:\Projects\event-attendance-system\apps\laravel-web\resources\views/components/admin-layout.blade.php ENDPATH**/ ?>

@@ -32,7 +32,7 @@
                                 @if ($event->attendance_locked)
                                     <form method="POST" action="{{ route('admin.attendance.unlock', $event) }}">
                                         @csrf
-                                        <button type="submit" class="rounded-lg bg-emerald-500/90 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-emerald-500">Unlock</button>
+                                        <button type="submit" class="rounded-lg bg-blue-700/90 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-blue-700">Unlock</button>
                                     </form>
                                 @else
                                     <form method="POST" action="{{ route('admin.attendance.lock', $event) }}">
