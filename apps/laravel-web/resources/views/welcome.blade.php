@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Event Attendance System') }}</title>
+        <title>{{ config('app.name', 'LLCC Event Attendance System') }}</title>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700|fraunces:400,600,700" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,12 +15,12 @@
             <div class="absolute inset-0 opacity-[0.18]" style="background-image: linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px); background-size: 72px 72px;"></div>
 
             <header class="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
-                <a href="/" class="flex items-center gap-3">
+                <a href="{{ route('landing') }}" class="flex items-center gap-3">
                     <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur">
                         <span class="font-semibold tracking-[0.22em] text-amber-300">EA</span>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold tracking-[0.3em] text-white/70 uppercase">Event Attendance System</p>
+                        <p class="text-sm font-semibold tracking-[0.3em] text-white/70 uppercase">LLCC Event Attendance System</p>
                         <p class="text-xs text-white/45">Web platform for campus attendance</p>
                     </div>
                 </a>

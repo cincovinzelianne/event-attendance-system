@@ -21,7 +21,7 @@
 
             <div class="relative mx-auto grid min-h-screen max-w-7xl lg:grid-cols-[0.92fr_1.08fr]">
                 <aside class="hidden lg:flex flex-col justify-between px-10 py-10">
-                    <a href="/" class="inline-flex items-center gap-3">
+                    <a href="{{ route('landing') }}" class="inline-flex items-center gap-3">
                         <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur">
                             <span class="font-semibold tracking-[0.22em] text-amber-300">EA</span>
                         </div>
@@ -59,7 +59,7 @@
                 <main class="flex items-center justify-center px-6 py-10 lg:px-10">
                     <div class="w-full max-w-lg rounded-[2rem] border border-white/10 bg-slate-950/80 p-8 shadow-2xl shadow-black/40 backdrop-blur-2xl sm:p-10">
                         <div class="mb-8 lg:hidden">
-                            <a href="/" class="inline-flex items-center gap-3">
+                            <a href="{{ route('landing') }}" class="inline-flex items-center gap-3">
                                 <div class="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur">
                                     <span class="font-semibold tracking-[0.22em] text-amber-300">EA</span>
                                 </div>

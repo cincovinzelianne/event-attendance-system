@@ -14,9 +14,8 @@ use App\Http\Controllers\Student\NotificationController as StudentNotificationCo
 use App\Http\Controllers\Student\QrController as StudentQrController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome')->name('landing');
+Route::view('/landing', 'welcome');
 
 Route::get('/dashboard', function () {
     $user = request()->user();

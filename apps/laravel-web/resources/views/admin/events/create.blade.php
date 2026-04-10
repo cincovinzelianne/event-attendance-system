@@ -1,17 +1,7 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Event') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-8">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white p-6 shadow-sm sm:rounded-lg">
-                <form method="POST" action="{{ route('admin.events.store') }}">
-                    @include('admin.events._form', ['submitLabel' => 'Save Event'])
-                </form>
-            </div>
-        </div>
+<x-admin-layout title="Create Event" subtitle="Set up a new event schedule, location, and attendance behavior.">
+    <div class="max-w-4xl rounded-3xl border border-white/10 bg-slate-900/75 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <form method="POST" action="{{ route('admin.events.store') }}">
+            @include('admin.events._form', ['submitLabel' => 'Save Event'])
+        </form>
     </div>
-</x-app-layout>
+</x-admin-layout>
