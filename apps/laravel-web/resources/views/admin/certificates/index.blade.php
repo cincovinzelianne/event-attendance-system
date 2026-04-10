@@ -1,22 +1,22 @@
 <x-admin-layout title="Certificates" subtitle="Generate and download participation certificates for event attendees.">
-    <div class="mb-6 rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+    <div class="mb-6 rounded-2xl border border-white/10 bg-blue-950/75 p-5">
         <form method="POST" action="{{ route('admin.certificates.generate') }}" class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
             @csrf
             <div>
                 <label for="event_id" class="block text-sm font-medium text-slate-200">Event</label>
-                <select id="event_id" name="event_id" required class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                <select id="event_id" name="event_id" required class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-yellow-300 focus:ring-yellow-300">
                     <option value="">Select an event</option>
                     @foreach ($events as $event)
                         <option value="{{ $event->id }}">{{ $event->title }} ({{ $event->starts_at?->format('Y-m-d') }})</option>
                     @endforeach
                 </select>
-                @error('event_id')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+                @error('event_id')<p class="mt-1 text-sm text-yellow-200">{{ $message }}</p>@enderror
             </div>
-            <button type="submit" class="rounded-xl bg-cyan-400/90 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">Generate</button>
+            <button type="submit" class="rounded-xl bg-yellow-500/90 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-yellow-400">Generate</button>
         </form>
     </div>
 
-    <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+    <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-white/10 text-sm">
                 <thead class="bg-white/5">
@@ -36,7 +36,7 @@
                             <td class="px-4 py-3 text-slate-300">{{ $certificate->event?->title }}</td>
                             <td class="px-4 py-3 text-slate-300">{{ $certificate->issued_at?->format('Y-m-d H:i') }}</td>
                             <td class="px-4 py-3">
-                                <a href="{{ route('admin.certificates.download', $certificate) }}" class="text-cyan-300 transition hover:text-cyan-100">Download</a>
+                                <a href="{{ route('admin.certificates.download', $certificate) }}" class="text-yellow-300 transition hover:text-yellow-100">Download</a>
                             </td>
                         </tr>
                     @empty

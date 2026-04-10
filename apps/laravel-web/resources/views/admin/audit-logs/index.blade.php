@@ -1,21 +1,21 @@
 <x-admin-layout title="Audit Logs" subtitle="Track create, update, delete, and module-level admin actions.">
-    <div class="mb-6 rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+    <div class="mb-6 rounded-2xl border border-white/10 bg-blue-950/75 p-5">
         <form method="GET" action="{{ route('admin.audit-logs.index') }}" class="grid gap-4 sm:grid-cols-3">
             <div>
                 <label for="action_type" class="block text-sm font-medium text-slate-200">Action Type</label>
-                <input id="action_type" name="action_type" type="text" value="{{ request('action_type') }}" placeholder="post:admin/events" class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                <input id="action_type" name="action_type" type="text" value="{{ request('action_type') }}" placeholder="post:admin/events" class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-yellow-300 focus:ring-yellow-300">
             </div>
             <div>
                 <label for="user_id" class="block text-sm font-medium text-slate-200">User ID</label>
-                <input id="user_id" name="user_id" type="number" value="{{ request('user_id') }}" class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                <input id="user_id" name="user_id" type="number" value="{{ request('user_id') }}" class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-yellow-300 focus:ring-yellow-300">
             </div>
             <div class="self-end">
-                <button type="submit" class="rounded-xl bg-cyan-400/90 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">Filter</button>
+                <button type="submit" class="rounded-xl bg-yellow-500/90 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-yellow-400">Filter</button>
             </div>
         </form>
     </div>
 
-    <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+    <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-white/10 text-sm">
                 <thead class="bg-white/5">

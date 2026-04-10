@@ -1,6 +1,6 @@
 <x-admin-layout title="Diagnostics" subtitle="Inspect system health, queues, and attendance integrity signals.">
     <div class="space-y-6">
-        <div class="rounded-xl border {{ $dbConnection === 'ok' ? 'border-emerald-300/20 bg-emerald-400/10 text-emerald-200' : 'border-rose-300/20 bg-rose-400/10 text-rose-200' }} p-4 text-sm">
+        <div class="rounded-xl border {{ $dbConnection === 'ok' ? 'border-blue-300/30 bg-blue-700/25 text-blue-100' : 'border-yellow-300/30 bg-yellow-500/20 text-yellow-100' }} p-4 text-sm">
             <strong>Database Connection:</strong>
             <span class="uppercase">{{ $dbConnection }}</span>
         </div>
@@ -15,7 +15,7 @@
             <div class="rounded-2xl border border-white/10 bg-white/5 p-4"><p class="text-xs text-slate-400">Failed Jobs</p><p class="mt-1 text-xl font-semibold text-white">{{ $stats['failed_jobs'] }}</p></div>
         </div>
 
-        <div class="rounded-3xl border border-white/10 bg-slate-900/75 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <div class="rounded-3xl border border-white/10 bg-blue-950/80 p-5 shadow-2xl shadow-black/30 backdrop-blur-xl">
             <h3 class="mb-2 font-medium text-white">Attendance Integrity</h3>
             <p class="mb-4 text-sm text-slate-300">Run command: <span class="font-mono">php artisan app:verify-attendance-integrity</span></p>
             @if ($integrityIssues->isEmpty())

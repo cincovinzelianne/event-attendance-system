@@ -1,10 +1,10 @@
 <x-admin-layout title="QR Scanner" subtitle="Use your camera for real-time QR capture, then submit attendance instantly.">
     <div class="grid max-w-6xl gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-        <section class="rounded-3xl border border-white/10 bg-slate-900/75 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <section class="rounded-3xl border border-white/10 bg-blue-950/80 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
             <div class="flex flex-wrap items-center justify-between gap-3">
                 <h2 class="text-lg font-semibold text-white">Live camera scanner</h2>
                 <div class="flex flex-wrap gap-2">
-                    <button id="start-scan" type="button" class="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300">Start camera</button>
+                    <button id="start-scan" type="button" class="rounded-xl bg-yellow-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-yellow-400">Start camera</button>
                     <button id="stop-scan" type="button" class="rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10" disabled>Stop camera</button>
                     <label for="qr-image" class="cursor-pointer rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10">Scan image</label>
                     <input id="qr-image" type="file" accept="image/*" class="hidden">
@@ -15,7 +15,7 @@
                 Point your camera at a student QR code. Once detected, the token field is filled automatically.
             </p>
 
-            <div class="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 p-3">
+            <div class="mt-4 overflow-hidden rounded-2xl border border-white/10 bg-blue-950/80 p-3">
                 <div id="qr-reader" class="min-h-[320px] w-full"></div>
                 <div id="qr-status" class="mt-3 rounded-lg bg-white/5 px-3 py-2 text-xs text-slate-300">
                     Camera is idle. Click "Start camera" to begin scanning.
@@ -23,7 +23,7 @@
             </div>
         </section>
 
-        <section class="rounded-3xl border border-white/10 bg-slate-900/75 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <section class="rounded-3xl border border-white/10 bg-blue-950/80 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
             <h2 class="text-lg font-semibold text-white">Attendance check-in</h2>
             <p class="mt-2 text-sm text-slate-300">Review the captured token and submit it for event attendance.</p>
 
@@ -32,7 +32,7 @@
 
                 <div>
                     <label for="event_id" class="block text-sm font-medium text-slate-200">Event</label>
-                    <select id="event_id" name="event_id" required class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                    <select id="event_id" name="event_id" required class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-yellow-300 focus:ring-yellow-300">
                         <option value="">-- Select Event --</option>
                         @foreach ($events as $event)
                             <option value="{{ $event->id }}" @selected(old('event_id') == $event->id)>
@@ -40,22 +40,22 @@
                             </option>
                         @endforeach
                     </select>
-                    @error('event_id')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+                    @error('event_id')<p class="mt-1 text-sm text-yellow-200">{{ $message }}</p>@enderror
                 </div>
 
                 <div>
                     <label for="token" class="block text-sm font-medium text-slate-200">Scanned QR Token</label>
-                    <textarea id="token" name="token" rows="6" required class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-xs text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">{{ old('token') }}</textarea>
-                    @error('token')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+                    <textarea id="token" name="token" rows="6" required class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-xs text-white shadow-sm focus:border-yellow-300 focus:ring-yellow-300">{{ old('token') }}</textarea>
+                    @error('token')<p class="mt-1 text-sm text-yellow-200">{{ $message }}</p>@enderror
                 </div>
 
                 <label class="inline-flex items-center gap-2 text-sm text-slate-300">
-                    <input id="auto-submit" type="checkbox" class="rounded border-white/20 bg-white/5 text-cyan-300 focus:ring-cyan-300">
+                    <input id="auto-submit" type="checkbox" class="rounded border-white/20 bg-white/5 text-yellow-300 focus:ring-yellow-300">
                     Auto-submit after successful scan
                 </label>
 
                 <div class="flex flex-wrap items-center gap-3">
-                    <button type="submit" class="rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5">Process Scan</button>
+                    <button type="submit" class="rounded-xl bg-gradient-to-r from-blue-700 to-yellow-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5">Process Scan</button>
                     <button id="clear-token" type="button" class="rounded-xl border border-white/20 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/10">Clear token</button>
                 </div>
             </form>
@@ -81,9 +81,9 @@
             const setStatus = (message, tone) => {
                 const tones = {
                     idle: 'bg-white/5 text-slate-300',
-                    active: 'bg-cyan-400/10 text-cyan-200',
-                    success: 'bg-emerald-400/10 text-emerald-200',
-                    error: 'bg-rose-400/10 text-rose-200',
+                    active: 'bg-blue-700/25 text-yellow-200',
+                    success: 'bg-blue-700/25 text-blue-100',
+                    error: 'bg-yellow-500/20 text-yellow-100',
                 };
 
                 statusField.className = 'mt-3 rounded-lg px-3 py-2 text-xs ' + (tones[tone] || tones.idle);

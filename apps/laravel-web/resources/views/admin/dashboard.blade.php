@@ -3,7 +3,7 @@
     subtitle="Manage event operations, monitor attendance health, and track student communication from one premium command view."
 >
     <x-slot name="actions">
-        <a href="{{ route('admin.events.create') }}" class="inline-flex items-center rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(34,211,238,0.25)] transition hover:-translate-y-0.5">
+        <a href="{{ route('admin.events.create') }}" class="inline-flex items-center rounded-xl bg-gradient-to-r from-blue-700 to-yellow-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(234,179,8,0.28)] transition hover:-translate-y-0.5">
             Create Event
         </a>
     </x-slot>
@@ -17,8 +17,8 @@
                         <p class="text-xs uppercase tracking-[0.2em] text-slate-400">Total events</p>
                         <p class="mt-2 text-3xl font-semibold text-white">{{ number_format($metrics['events']) }}</p>
                     </article>
-                    <article class="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-5 backdrop-blur-xl">
-                        <p class="text-xs uppercase tracking-[0.2em] text-cyan-100/85">Upcoming</p>
+                    <article class="rounded-2xl border border-yellow-300/30 bg-blue-700/25 p-5 backdrop-blur-xl">
+                        <p class="text-xs uppercase tracking-[0.2em] text-yellow-100/85">Upcoming</p>
                         <p class="mt-2 text-3xl font-semibold text-white">{{ number_format($metrics['upcoming_events']) }}</p>
                     </article>
                     <article class="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
@@ -32,10 +32,10 @@
                 </section>
 
     <section class="mt-8 grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
-                    <article class="rounded-3xl border border-white/10 bg-slate-900/75 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
+                    <article class="rounded-3xl border border-white/10 bg-blue-950/80 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
                         <div class="flex items-center justify-between">
                             <h2 class="text-lg font-semibold text-white">Recent events</h2>
-                            <a href="{{ route('admin.events.index') }}" class="text-sm font-medium text-cyan-200 transition hover:text-cyan-100">View all</a>
+                            <a href="{{ route('admin.events.index') }}" class="text-sm font-medium text-yellow-200 transition hover:text-yellow-100">View all</a>
                         </div>
 
                         <div class="mt-5 space-y-3">
@@ -51,7 +51,7 @@
                                                 @endif
                                             </p>
                                         </div>
-                                        <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $event->attendance_locked ? 'bg-rose-400/20 text-rose-200' : 'bg-emerald-400/20 text-emerald-200' }}">
+                                        <span class="rounded-full px-3 py-1 text-xs font-semibold {{ $event->attendance_locked ? 'bg-yellow-500/25 text-yellow-100' : 'bg-blue-600/30 text-blue-100' }}">
                                             {{ $event->attendance_locked ? 'Locked' : 'Open' }}
                                         </span>
                                     </div>
@@ -64,20 +64,20 @@
                         </div>
                     </article>
 
-                    <article class="rounded-3xl border border-white/10 bg-slate-900/75 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
+                    <article class="rounded-3xl border border-white/10 bg-blue-950/80 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl">
                         <h2 class="text-lg font-semibold text-white">Quick actions</h2>
                         <p class="mt-2 text-sm leading-6 text-slate-300">
                             Jump directly into the tools admins use most throughout the day.
                         </p>
 
                         <div class="mt-5 grid gap-3">
-                            <a href="{{ route('admin.events.create') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Create new event</a>
-                            <a href="{{ route('admin.attendance.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Open attendance dashboard</a>
-                            <a href="{{ route('admin.qr-scanner.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Launch QR scanner</a>
-                            <a href="{{ route('admin.notifications.create') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Send notification</a>
-                            <a href="{{ route('admin.users.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Manage users</a>
-                            <a href="{{ route('admin.audit-logs.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">View audit logs</a>
-                            <a href="{{ route('admin.settings.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">System settings</a>
+                            <a href="{{ route('admin.events.create') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">Create new event</a>
+                            <a href="{{ route('admin.attendance.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">Open attendance dashboard</a>
+                            <a href="{{ route('admin.qr-scanner.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">Launch QR scanner</a>
+                            <a href="{{ route('admin.notifications.create') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">Send notification</a>
+                            <a href="{{ route('admin.users.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">Manage users</a>
+                            <a href="{{ route('admin.audit-logs.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">View audit logs</a>
+                            <a href="{{ route('admin.settings.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-yellow-300/50 hover:bg-blue-700/25">System settings</a>
                         </div>
                     </article>
     </section>

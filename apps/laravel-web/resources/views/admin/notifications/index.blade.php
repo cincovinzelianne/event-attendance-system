@@ -1,11 +1,11 @@
 <x-admin-layout title="Notifications" subtitle="Review delivery activity and manage communication to users.">
     <x-slot name="actions">
-        <a href="{{ route('admin.notifications.create') }}" class="inline-flex items-center rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(34,211,238,0.25)] transition hover:-translate-y-0.5">
+        <a href="{{ route('admin.notifications.create') }}" class="inline-flex items-center rounded-xl bg-gradient-to-r from-blue-700 to-yellow-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(234,179,8,0.28)] transition hover:-translate-y-0.5">
             {{ __('Create Notification') }}
         </a>
     </x-slot>
 
-    <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+    <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-white/10 text-sm">
                 <thead class="bg-white/5">
@@ -27,7 +27,7 @@
                             <td class="px-4 py-3 text-slate-300">
                                 {{ data_get($notification->meta, 'target_role', 'n/a') }}
                                 @if(data_get($notification->meta, 'target_department'))
-                                    <span class="text-xs text-cyan-300">/ {{ data_get($notification->meta, 'target_department') }}</span>
+                                    <span class="text-xs text-yellow-300">/ {{ data_get($notification->meta, 'target_department') }}</span>
                                 @endif
                             </td>
                             <td class="px-4 py-3 text-slate-300">{{ ucfirst($notification->status) }}</td>

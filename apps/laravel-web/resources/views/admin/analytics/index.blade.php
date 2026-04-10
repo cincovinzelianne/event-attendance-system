@@ -9,13 +9,13 @@
                 <p class="text-xs uppercase tracking-wide text-slate-400">Events</p>
                 <p class="mt-2 text-2xl font-semibold text-white">{{ $totalEvents }}</p>
             </div>
-            <div class="rounded-2xl border border-cyan-300/20 bg-cyan-400/10 p-5 backdrop-blur-xl">
-                <p class="text-xs uppercase tracking-wide text-cyan-100">Attendance Records</p>
+            <div class="rounded-2xl border border-yellow-300/30 bg-blue-700/25 p-5 backdrop-blur-xl">
+                <p class="text-xs uppercase tracking-wide text-yellow-100">Attendance Records</p>
                 <p class="mt-2 text-2xl font-semibold text-white">{{ $totalAttendance }}</p>
             </div>
         </div>
 
-        <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
             <div class="border-b border-white/10 px-5 py-4">
                 <h3 class="font-medium text-white">Latest Event Attendance</h3>
             </div>
@@ -38,7 +38,7 @@
                                 <td class="px-4 py-3">
                                     <div class="flex items-center gap-3">
                                         <div class="h-2 w-36 rounded-full bg-slate-700">
-                                            <div class="h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" style="width: {{ min(100, $event['attendance_rate']) }}%"></div>
+                                            <div class="h-2 rounded-full bg-gradient-to-r from-blue-700 to-yellow-500" style="width: {{ min(100, $event['attendance_rate']) }}%"></div>
                                         </div>
                                         <span class="text-slate-300">{{ $event['attendance_rate'] }}%</span>
                                     </div>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="grid gap-6 lg:grid-cols-2">
-            <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+            <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
                 <div class="border-b border-white/10 px-5 py-4">
                     <h3 class="font-medium text-white">Top Attendees</h3>
                 </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+            <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
                 <div class="border-b border-white/10 px-5 py-4">
                     <h3 class="font-medium text-white">Frequent Absentees</h3>
                 </div>
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-blue-950/75 shadow-2xl shadow-black/30 backdrop-blur-xl">
             <div class="border-b border-white/10 px-5 py-4">
                 <h3 class="font-medium text-white">Department Engagement</h3>
             </div>
