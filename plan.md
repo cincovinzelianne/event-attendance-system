@@ -1,17 +1,17 @@
-# Migration Plan: Event Attendance System -> Laravel + Node.js + MySQL
+# Migration Plan: Event Attendance System -> Laravel (PHP 8.4) + Node.js 22 + Tailwind CSS + MySQL
 
 ## 1. Target Architecture (Decide First)
 
-1. Use **Laravel** for core backend (auth, admin/student modules, REST APIs, DB migrations, queues).
-2. Use **Node.js** for one of these roles (pick one and stay consistent):
-   - Real-time services (WebSocket, live attendance updates, notifications).
-   - Frontend server/tooling (Vite-based SPA with React/Vue).
-   - Background microservices (QR processing, integrations).
-3. Keep **MySQL** as the primary database.
-4. Run everything in one repo with clear boundaries:
-   - `/apps/laravel-api`
-   - `/apps/node-realtime` (or `/apps/web` if frontend)
-   - `/infra` (Docker, deployment, CI/CD)
+1. Use **Laravel (PHP 8.4)** for core backend and web app modules (auth, admin/student modules, REST APIs, DB migrations, queues).
+2. Use **Node.js 22** for frontend tooling only (Vite build pipeline and asset tooling for the Laravel web app).
+3. Use **Tailwind CSS** as the UI styling framework.
+4. Keep **MySQL** as the primary database.
+5. Scope this migration as a **web-based platform only** (no mobile app and no desktop app).
+6. Keep everything in one repo with clear boundaries:
+   - `/apps/laravel-web`
+   - `/docs`
+   - `/scripts`
+   - `/database`
 
 ---
 
@@ -38,22 +38,50 @@
 ## 3. Environment and Tooling Setup
 
 1. Install prerequisites:
-   - PHP 8.2+
-   - Composer
-   - Node.js 20+
+   - PHP 8.4+
+   - Composer 2+
+   - Node.js 22+
+   - npm 10+
    - MySQL 8+
-   - Docker + Docker Compose (recommended)
 2. Create monorepo structure and initialize projects:
-   - `laravel new apps/laravel-api`
-   - `npm create vite@latest apps/web` (if SPA) or `npm init -y apps/node-realtime`
+   - `laravel new apps/laravel-web`
+   - Configure Vite and Tailwind CSS inside the Laravel app
 3. Add root-level dev tooling:
    - `.editorconfig`, `.env.example`, `README.md`
    - Optional: Turbo/Nx for monorepo scripts
-4. Set up local services (`mysql`, `redis`, `mailhog`) via Docker Compose.
+4. Set up local environment without Docker:
+   - Run MySQL locally and create dedicated databases/users per environment
+   - Configure Laravel `.env` values for local DB connection and app URL
 
 ---
 
-## 4. Database Migration Strategy (MySQL)
+## 4. File and Folder Organization (Web-Only Platform)
+
+1. Organize the repository for maintainability and clear ownership:
+   - `/apps/laravel-web` -> Main Laravel web application
+   - `/docs` -> Architecture, migration inventory, ERD, runbooks
+   - `/scripts` -> One-time migration/import/verification scripts
+   - `/database` -> SQL snapshots, legacy SQL references, data mapping notes
+2. Inside `/apps/laravel-web`, keep Laravel conventions and separate domains:
+   - `/app/Http/Controllers/Admin`
+   - `/app/Http/Controllers/Student`
+   - `/app/Services`
+   - `/app/Repositories`
+   - `/resources/views/admin`
+   - `/resources/views/student`
+   - `/resources/css` (Tailwind entry/styles)
+   - `/resources/js` (Vite-managed JS)
+3. Move legacy PHP files into an archive area after migration (read-only):
+   - `/legacy/php-pages`
+   - `/legacy/sql-hotfixes`
+4. Keep all deliverables web-focused:
+   - Responsive browser UI only
+   - No native Android/iOS codebase
+   - No desktop client packaging
+
+---
+
+## 5. Database Migration Strategy (MySQL)
 
 1. Reverse engineer current schema from existing SQL and live DB.
 2. Create ERD and canonical schema in `docs/erd.md`.
@@ -77,7 +105,7 @@
 
 ---
 
-## 5. Laravel Core Buildout
+## 6. Laravel Core Buildout
 
 1. Configure Laravel app:
    - DB, cache, queue, mail, timezone, storage
@@ -97,22 +125,16 @@
 
 ---
 
-## 6. Node.js Scope Implementation
+## 7. Node.js + Tailwind Web Implementation
 
-1. Choose Node responsibility clearly:
-   - If real-time: implement Socket.IO service and Redis pub/sub.
-   - If frontend: build SPA UI consuming Laravel APIs.
-2. Integrate with Laravel:
-   - Laravel emits events (attendance scanned, event started, notification created)
-   - Node consumes events and broadcasts to clients
-3. Add security between services:
-   - Signed internal tokens
-   - Rate limiting and CORS rules
-4. Add health endpoints and structured logs.
+1. Use Node.js 22 strictly for frontend asset tooling (Vite build/dev server) within Laravel.
+2. Set up Tailwind CSS and define shared design tokens/components for admin and student web pages.
+3. Build responsive, browser-based pages that consume Laravel routes/APIs.
+4. Keep deployment simple: Laravel app + compiled frontend assets + MySQL (no separate Node runtime service required in production unless later justified).
 
 ---
 
-## 7. Feature-by-Feature Migration Order
+## 8. Feature-by-Feature Migration Order
 
 1. **Auth + user management** (P0)
 2. **Event management** (P0)
@@ -131,7 +153,7 @@ For each feature:
 
 ---
 
-## 8. QR and Scanner Migration Details
+## 9. QR and Scanner Migration Details
 
 1. Standardize QR payload format (signed token + event/user IDs).
 2. Rebuild QR generation in Laravel (or dedicated Node worker if needed).
@@ -144,22 +166,23 @@ For each feature:
 
 ---
 
-## 9. Notifications and Background Jobs
+## 10. Notifications and Background Jobs
 
 1. Move notification creation to Laravel jobs/queues.
-2. Use Node real-time service for live push (if selected scope).
+2. For web real-time UX, prefer Laravel-native options first (broadcasting/polling) before introducing extra services.
 3. Persist notification states in MySQL.
 4. Add retry strategy + dead-letter handling for failed jobs.
 
 ---
 
-## 10. Testing Strategy
+## 11. Testing Strategy
 
 1. Laravel tests:
    - Feature tests for all APIs
    - Unit tests for core services
-2. Node tests:
-   - Unit tests + integration tests for sockets/events
+2. Frontend tooling/UI tests:
+   - Unit tests for JS components/helpers when needed
+   - Browser-focused integration tests for key pages
 3. E2E tests (Playwright/Cypress):
    - Student login -> scan QR -> attendance reflected on admin dashboard
 4. Data verification tests after migration:
@@ -168,7 +191,7 @@ For each feature:
 
 ---
 
-## 11. Security and Compliance
+## 12. Security and Compliance
 
 1. Enforce password hashing and secure session/token storage.
 2. Add CSRF/CORS protections per app type.
@@ -178,7 +201,7 @@ For each feature:
 
 ---
 
-## 12. Deployment and CI/CD
+## 13. Deployment and CI/CD
 
 1. Set up environments:
    - `dev`, `staging`, `production`
@@ -187,7 +210,7 @@ For each feature:
 3. Deployment sequence:
    - Deploy Laravel
    - Run DB migrations
-   - Deploy Node service
+   - Build and publish frontend assets
    - Smoke test critical paths
 4. Add rollback strategy:
    - DB backups
@@ -196,7 +219,7 @@ For each feature:
 
 ---
 
-## 13. Cutover Plan (Low Risk)
+## 14. Cutover Plan (Low Risk)
 
 1. Run new stack in staging with production-like data.
 2. Perform UAT with admins and selected students.
@@ -210,7 +233,7 @@ For each feature:
 
 ---
 
-## 14. Post-Migration Cleanup
+## 15. Post-Migration Cleanup
 
 1. Archive legacy PHP scripts and SQL hotfix files.
 2. Remove duplicate logic and temporary migration utilities.
@@ -222,22 +245,23 @@ For each feature:
 
 ---
 
-## 15. Suggested Timeline (Example: 8-12 Weeks)
+## 16. Suggested Timeline (Example: 8-12 Weeks)
 
 1. Week 1-2: Audit + schema design + environment setup
 2. Week 3-4: Laravel auth/users/events + DB migration scripts
 3. Week 5-6: Attendance + QR + core tests
-4. Week 7-8: Node integration (real-time/UI) + notifications
+4. Week 7-8: Tailwind-based UI migration + notifications
 5. Week 9: E2E tests + performance + security hardening
 6. Week 10: Staging UAT + bug fixes
 7. Week 11-12: Phased production rollout + cleanup
 
 ---
 
-## 16. Definition of Done
+## 17. Definition of Done
 
 1. All P0/P1 features mapped and working in new stack.
 2. Data migration validated with signed-off reconciliation report.
 3. Test suite green in CI with acceptable coverage.
 4. Legacy app retired or archived.
 5. Team handover complete with updated docs and runbooks.
+6. Final platform is fully web-based with no mobile or desktop client dependency.
