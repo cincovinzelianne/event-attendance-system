@@ -75,6 +75,9 @@
                             <a href="{{ route('admin.attendance.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Open attendance dashboard</a>
                             <a href="{{ route('admin.qr-scanner.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Launch QR scanner</a>
                             <a href="{{ route('admin.notifications.create') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Send notification</a>
+                            <a href="{{ route('admin.users.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">Manage users</a>
+                            <a href="{{ route('admin.audit-logs.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">View audit logs</a>
+                            <a href="{{ route('admin.settings.index') }}" class="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-slate-100 transition hover:border-cyan-300/40 hover:bg-cyan-400/10">System settings</a>
                         </div>
                     </article>
     </section>

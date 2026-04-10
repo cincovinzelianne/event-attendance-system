@@ -1,4 +1,10 @@
 <x-admin-layout title="Attendance Dashboard" subtitle="Review attendance volume and control lock status for each event.">
+    <x-slot name="actions">
+        <a href="{{ route('admin.attendance.export.csv') }}" class="inline-flex items-center rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_14px_40px_rgba(34,211,238,0.25)] transition hover:-translate-y-0.5">
+            Export CSV
+        </a>
+    </x-slot>
+
     <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-white/10 text-sm">

@@ -27,6 +27,10 @@ class StoreNotificationRequest extends FormRequest
             'message' => ['required', 'string', 'max:2000'],
             'type' => ['nullable', 'string', 'max:30'],
             'target_role' => ['required', 'in:all,admin,student'],
+            'target_department' => ['nullable', 'string', 'max:120'],
+            'target_user_ids' => ['nullable', 'array'],
+            'target_user_ids.*' => ['integer', 'exists:users,id'],
+            'scheduled_for' => ['nullable', 'date', 'after:now'],
         ];
     }
 }

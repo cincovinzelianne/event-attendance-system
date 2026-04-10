@@ -31,7 +31,7 @@ class AttendanceController extends Controller
         $event = Event::query()->findOrFail($request->integer('event_id'));
 
         try {
-            $attendance = $this->attendanceService->checkIn($event, $request->user());
+            $attendance = $this->attendanceService->checkIn($event, $request->user(), 'student-web');
 
             return redirect()->route('student.attendance.index')->with(
                 'status',

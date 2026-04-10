@@ -32,6 +32,39 @@
                 </div>
             </div>
 
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                    <label for="target_department" class="block text-sm font-medium text-slate-200">Target Department (Optional)</label>
+                    <select id="target_department" name="target_department" class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                        <option value="">All Departments</option>
+                        @foreach ($departments as $department)
+                            <option value="{{ $department }}" @selected(old('target_department') === $department)>{{ $department }}</option>
+                        @endforeach
+                    </select>
+                    @error('target_department')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+                </div>
+
+                <div>
+                    <label for="scheduled_for" class="block text-sm font-medium text-slate-200">Schedule (Optional)</label>
+                    <input id="scheduled_for" name="scheduled_for" type="datetime-local" value="{{ old('scheduled_for') }}" class="mt-1 block w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                    @error('scheduled_for')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+                </div>
+            </div>
+
+            <div>
+                <label for="target_user_ids" class="block text-sm font-medium text-slate-200">Specific Students (Optional)</label>
+                <select id="target_user_ids" name="target_user_ids[]" multiple class="mt-1 block min-h-44 w-full rounded-xl border-white/10 bg-white/5 text-white shadow-sm focus:border-cyan-300 focus:ring-cyan-300">
+                    @foreach ($students as $student)
+                        <option value="{{ $student->id }}" @selected(in_array($student->id, old('target_user_ids', []), true))>
+                            {{ $student->name }} ({{ $student->email }})
+                        </option>
+                    @endforeach
+                </select>
+                <p class="mt-1 text-xs text-slate-400">Hold Ctrl/Cmd to select multiple students. If selected, these users are prioritized as recipients.</p>
+                @error('target_user_ids')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+                @error('target_user_ids.*')<p class="mt-1 text-sm text-rose-300">{{ $message }}</p>@enderror
+            </div>
+
             <div class="flex items-center gap-3">
                 <button type="submit" class="rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5">Queue Notification</button>
                 <a href="{{ route('admin.notifications.index') }}" class="rounded-xl border border-white/20 px-4 py-2 text-sm text-slate-200 transition hover:bg-white/10">Cancel</a>

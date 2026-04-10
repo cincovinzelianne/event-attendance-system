@@ -22,8 +22,10 @@ class DispatchNotificationJob implements ShouldQueue
         public readonly array $payload,
         public readonly string $targetRole,
         public readonly int $createdBy,
-    )
-    {
+        public readonly ?string $scheduledFor = null,
+        public readonly ?string $targetDepartment = null,
+        public readonly array $targetUserIds = [],
+    ) {
     }
 
     /**
@@ -37,6 +39,16 @@ class DispatchNotificationJob implements ShouldQueue
             $query->where('role', $this->targetRole);
         }
 
+        if (! empty($this->targetUserIds)) {
+            $query->whereIn('id', $this->targetUserIds);
+        }
+
+        if ($this->targetDepartment !== null && $this->targetDepartment !== '') {
+            $query->whereHas('studentProfile', function ($profileQuery): void {
+                $profileQuery->where('department', $this->targetDepartment);
+            });
+        }
+
         $users = $query->get();
 
         $now = now();
@@ -48,7 +60,10 @@ class DispatchNotificationJob implements ShouldQueue
             'status' => 'unread',
             'meta' => json_encode([
                 'target_role' => $this->targetRole,
+                'target_department' => $this->targetDepartment,
+                'target_user_ids' => $this->targetUserIds,
             ], JSON_THROW_ON_ERROR),
+            'scheduled_for' => $this->scheduledFor,
             'created_by' => $this->createdBy,
             'created_at' => $now,
             'updated_at' => $now,

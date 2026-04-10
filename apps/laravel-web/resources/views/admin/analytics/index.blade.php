@@ -53,5 +53,93 @@
                 </table>
             </div>
         </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+            <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+                <div class="border-b border-white/10 px-5 py-4">
+                    <h3 class="font-medium text-white">Top Attendees</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-white/10 text-sm">
+                        <thead class="bg-white/5">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-medium text-slate-200">Student</th>
+                                <th class="px-4 py-3 text-left font-medium text-slate-200">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/10 bg-transparent">
+                            @forelse ($topAttendees as $attendee)
+                                <tr>
+                                    <td class="px-4 py-3 text-white">{{ $attendee->name }}</td>
+                                    <td class="px-4 py-3 text-slate-300">{{ $attendee->attendance_count }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2" class="px-4 py-8 text-center text-slate-400">No attendance data yet.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+                <div class="border-b border-white/10 px-5 py-4">
+                    <h3 class="font-medium text-white">Frequent Absentees</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-white/10 text-sm">
+                        <thead class="bg-white/5">
+                            <tr>
+                                <th class="px-4 py-3 text-left font-medium text-slate-200">Student</th>
+                                <th class="px-4 py-3 text-left font-medium text-slate-200">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/10 bg-transparent">
+                            @forelse ($frequentAbsentees as $attendee)
+                                <tr>
+                                    <td class="px-4 py-3 text-white">{{ $attendee->name }}</td>
+                                    <td class="px-4 py-3 text-slate-300">{{ $attendee->attendance_count }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2" class="px-4 py-8 text-center text-slate-400">No attendance data yet.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+            <div class="border-b border-white/10 px-5 py-4">
+                <h3 class="font-medium text-white">Department Engagement</h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-white/10 text-sm">
+                    <thead class="bg-white/5">
+                        <tr>
+                            <th class="px-4 py-3 text-left font-medium text-slate-200">Department</th>
+                            <th class="px-4 py-3 text-left font-medium text-slate-200">Students</th>
+                            <th class="px-4 py-3 text-left font-medium text-slate-200">Attendance Logs</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10 bg-transparent">
+                        @forelse ($departmentEngagement as $row)
+                            <tr>
+                                <td class="px-4 py-3 text-white">{{ $row->department }}</td>
+                                <td class="px-4 py-3 text-slate-300">{{ $row->total_students }}</td>
+                                <td class="px-4 py-3 text-slate-300">{{ $row->total_attendance }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3" class="px-4 py-8 text-center text-slate-400">No department profiles found.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </x-admin-layout>

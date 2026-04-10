@@ -39,7 +39,7 @@ class QrScannerController extends Controller
                 throw new RuntimeException('Scanned token is not for a student account.');
             }
 
-            $attendance = $this->attendanceService->checkIn($event, $student);
+            $attendance = $this->attendanceService->checkIn($event, $student, 'qr-scanner');
 
             return redirect()->route('admin.qr-scanner.index')->with(
                 'status',

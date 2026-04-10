@@ -1,12 +1,18 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
 use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
+use App\Http\Controllers\Admin\AuditLogController;
+use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\DiagnosticsController;
+use App\Http\Controllers\Admin\EvaluationController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\NotificationController as AdminNotificationController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\QrScannerController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\AttendanceController as StudentAttendanceController;
 use App\Http\Controllers\Student\DashboardController as StudentDashboardController;
@@ -27,9 +33,10 @@ Route::get('/dashboard', function () {
     return redirect()->route('student.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function (): void {
+Route::middleware(['auth', 'verified', 'role:admin', 'audit'])->group(function (): void {
     Route::get('/admin/dashboard', AdminDashboardController::class)->name('admin.dashboard');
     Route::get('/admin/attendance', [AdminAttendanceController::class, 'index'])->name('admin.attendance.index');
+    Route::get('/admin/attendance/export/csv', [AdminAttendanceController::class, 'exportCsv'])->name('admin.attendance.export.csv');
     Route::post('/admin/events/{event}/attendance/lock', [AdminAttendanceController::class, 'lock'])->name('admin.attendance.lock');
     Route::post('/admin/events/{event}/attendance/unlock', [AdminAttendanceController::class, 'unlock'])->name('admin.attendance.unlock');
     Route::get('/admin/qr-scanner', [QrScannerController::class, 'index'])->name('admin.qr-scanner.index');
@@ -39,6 +46,24 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function (): void {
     Route::post('/admin/notifications', [AdminNotificationController::class, 'store'])->name('admin.notifications.store');
     Route::get('/admin/analytics', [AnalyticsController::class, 'index'])->name('admin.analytics.index');
     Route::get('/admin/diagnostics', [DiagnosticsController::class, 'index'])->name('admin.diagnostics.index');
+    Route::get('/admin/audit-logs', AuditLogController::class)->name('admin.audit-logs.index');
+    Route::get('/admin/settings', [SettingsController::class, 'index'])->name('admin.settings.index');
+    Route::put('/admin/settings', [SettingsController::class, 'update'])->name('admin.settings.update');
+    Route::get('/admin/permissions', [PermissionController::class, 'index'])->name('admin.permissions.index');
+    Route::put('/admin/permissions', [PermissionController::class, 'update'])->name('admin.permissions.update');
+    Route::get('/admin/certificates', [CertificateController::class, 'index'])->name('admin.certificates.index');
+    Route::post('/admin/certificates/generate', [CertificateController::class, 'generate'])->name('admin.certificates.generate');
+    Route::get('/admin/certificates/{certificate}/download', [CertificateController::class, 'download'])->name('admin.certificates.download');
+    Route::get('/admin/evaluations', [EvaluationController::class, 'index'])->name('admin.evaluations.index');
+    Route::post('/admin/evaluations/seed', [EvaluationController::class, 'seedFromAttendance'])->name('admin.evaluations.seed');
+    Route::post('/admin/evaluations/{evaluation}/mark-submitted', [EvaluationController::class, 'markSubmitted'])->name('admin.evaluations.mark-submitted');
+
+    Route::resource('/admin/users', UserController::class)
+        ->except(['show'])
+        ->names('admin.users');
+    Route::post('/admin/users/import', [UserController::class, 'import'])->name('admin.users.import');
+    Route::get('/admin/users/export/csv', [UserController::class, 'exportCsv'])->name('admin.users.export.csv');
+
     Route::resource('/admin/events', EventController::class)
         ->except(['show'])
         ->names('admin.events');

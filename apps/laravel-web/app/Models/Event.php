@@ -11,8 +11,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'title',
     'description',
     'starts_at',
+    'checkin_start_at',
+    'checkin_end_at',
     'ends_at',
     'location',
+    'google_form_url',
+    'poster_path',
+    'attachment_path',
+    'target_department',
+    'target_course',
+    'target_year_level',
+    'status',
     'attendance_locked',
     'created_by',
 ])]
@@ -22,6 +31,8 @@ class Event extends Model
     {
         return [
             'starts_at' => 'datetime',
+            'checkin_start_at' => 'datetime',
+            'checkin_end_at' => 'datetime',
             'ends_at' => 'datetime',
             'attendance_locked' => 'boolean',
         ];

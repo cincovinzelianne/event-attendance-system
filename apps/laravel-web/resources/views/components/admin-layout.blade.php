@@ -52,6 +52,24 @@
                             <a href="{{ route('admin.notifications.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.notifications.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
                                 Notifications
                             </a>
+                            <a href="{{ route('admin.users.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.users.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                                Users
+                            </a>
+                            <a href="{{ route('admin.settings.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.settings.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                                Settings
+                            </a>
+                            <a href="{{ route('admin.permissions.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.permissions.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                                Permissions
+                            </a>
+                            <a href="{{ route('admin.audit-logs.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.audit-logs.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                                Audit Logs
+                            </a>
+                            <a href="{{ route('admin.certificates.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.certificates.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                                Certificates
+                            </a>
+                            <a href="{{ route('admin.evaluations.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.evaluations.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
+                                Evaluations
+                            </a>
                             <a href="{{ route('admin.analytics.index') }}" class="flex items-center rounded-xl px-3 py-2 text-sm transition {{ request()->routeIs('admin.analytics.*') ? 'bg-cyan-400/10 font-semibold text-cyan-200' : 'text-slate-300 hover:bg-white/5 hover:text-white' }}">
                                 Analytics
                             </a>

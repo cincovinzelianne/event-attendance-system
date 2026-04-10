@@ -14,6 +14,7 @@
                                 <th class="px-4 py-3 text-left font-medium text-slate-200">Start</th>
                                 <th class="px-4 py-3 text-left font-medium text-slate-200">End</th>
                                 <th class="px-4 py-3 text-left font-medium text-slate-200">Location</th>
+                                <th class="px-4 py-3 text-left font-medium text-slate-200">Status</th>
                                 <th class="px-4 py-3 text-left font-medium text-slate-200">Locked</th>
                                 <th class="px-4 py-3 text-left font-medium text-slate-200">Actions</th>
                             </tr>
@@ -25,6 +26,7 @@
                             <td class="px-4 py-3 text-slate-300">{{ $event->starts_at?->format('Y-m-d H:i') }}</td>
                             <td class="px-4 py-3 text-slate-300">{{ $event->ends_at?->format('Y-m-d H:i') ?? '-' }}</td>
                             <td class="px-4 py-3 text-slate-300">{{ $event->location ?? '-' }}</td>
+                            <td class="px-4 py-3 text-slate-300">{{ ucfirst($event->status ?? 'upcoming') }}</td>
                             <td class="px-4 py-3">
                                 <span class="rounded-full px-2.5 py-1 text-xs font-semibold {{ $event->attendance_locked ? 'bg-rose-400/20 text-rose-200' : 'bg-emerald-400/20 text-emerald-200' }}">
                                     {{ $event->attendance_locked ? 'Yes' : 'No' }}
@@ -43,7 +45,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-4 py-8 text-center text-slate-400">No events found.</td>
+                            <td colspan="7" class="px-4 py-8 text-center text-slate-400">No events found.</td>
                         </tr>
                     @endforelse
                 </tbody>
