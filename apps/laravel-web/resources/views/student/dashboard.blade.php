@@ -9,7 +9,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __('Welcome to the student dashboard.') }}
+                    <p class="mb-4">{{ __('Welcome to the student dashboard.') }}</p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('student.attendance.index') }}" class="inline-flex rounded-md bg-gray-900 px-4 py-2 text-sm text-white hover:bg-gray-700">
+                            {{ __('Record Attendance') }}
+                        </a>
+                        <a href="{{ route('student.qr.show') }}" class="inline-flex rounded-md bg-blue-700 px-4 py-2 text-sm text-white hover:bg-blue-600">
+                            {{ __('Show My QR Token') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,8 +11,8 @@
 - [ ] MySQL-driven Laravel migrations for all legacy tables completed.
 - [x] Auth + user management migrated (P0).
 - [x] Event management migrated (P0).
-- [ ] Attendance capture/locking migrated (P0).
-- [ ] QR generation + scanner flow migrated (P0).
+- [x] Attendance capture/locking migrated (P0).
+- [x] QR generation + scanner flow migrated (P0).
 - [ ] Notifications migrated (P1).
 - [ ] Analytics/reporting migrated (P1).
 - [ ] Diagnostics/admin tools migrated (P2).
@@ -155,8 +155,8 @@
 
 1. [x] **Auth + user management** (P0)
 2. [x] **Event management** (P0)
-3. [ ] **Attendance capture/locking** (P0)
-4. [ ] **QR generation + scanner flow** (P0)
+3. [x] **Attendance capture/locking** (P0)
+4. [x] **QR generation + scanner flow** (P0)
 5. [ ] **Notifications** (P1)
 6. [ ] **Analytics/reporting** (P1)
 7. [ ] **Diagnostics/admin tools** (P2)

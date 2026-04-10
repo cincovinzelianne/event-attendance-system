@@ -10,9 +10,17 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <p class="mb-4">{{ __('Welcome to the admin dashboard.') }}</p>
-                    <a href="{{ route('admin.events.index') }}" class="inline-flex rounded-md bg-gray-900 px-4 py-2 text-sm text-white hover:bg-gray-700">
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('admin.events.index') }}" class="inline-flex rounded-md bg-gray-900 px-4 py-2 text-sm text-white hover:bg-gray-700">
                         {{ __('Manage Events') }}
-                    </a>
+                        </a>
+                        <a href="{{ route('admin.attendance.index') }}" class="inline-flex rounded-md bg-blue-700 px-4 py-2 text-sm text-white hover:bg-blue-600">
+                            {{ __('Attendance Dashboard') }}
+                        </a>
+                        <a href="{{ route('admin.qr-scanner.index') }}" class="inline-flex rounded-md bg-emerald-700 px-4 py-2 text-sm text-white hover:bg-emerald-600">
+                            {{ __('QR Scanner') }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
