@@ -20,6 +20,15 @@
                         <a href="{{ route('admin.qr-scanner.index') }}" class="inline-flex rounded-md bg-emerald-700 px-4 py-2 text-sm text-white hover:bg-emerald-600">
                             {{ __('QR Scanner') }}
                         </a>
+                        <a href="{{ route('admin.notifications.index') }}" class="inline-flex rounded-md bg-amber-700 px-4 py-2 text-sm text-white hover:bg-amber-600">
+                            {{ __('Notifications') }}
+                        </a>
+                        <a href="{{ route('admin.analytics.index') }}" class="inline-flex rounded-md bg-indigo-700 px-4 py-2 text-sm text-white hover:bg-indigo-600">
+                            {{ __('Analytics') }}
+                        </a>
+                        <a href="{{ route('admin.diagnostics.index') }}" class="inline-flex rounded-md bg-slate-700 px-4 py-2 text-sm text-white hover:bg-slate-600">
+                            {{ __('Diagnostics') }}
+                        </a>
                     </div>
                 </div>
             </div>

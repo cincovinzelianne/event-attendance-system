@@ -7,15 +7,15 @@
 - [x] Node.js dependencies installed for Vite + Tailwind CSS in Laravel app.
 - [x] Laravel domain folders created (`Admin`, `Student`, `Services`, `Repositories`, `views/admin`, `views/student`).
 - [x] Migration inventory file completed and mapped with priorities.
-- [ ] ERD and canonical schema document completed.
-- [ ] MySQL-driven Laravel migrations for all legacy tables completed.
+- [x] ERD and canonical schema document completed.
+- [x] MySQL-driven Laravel migrations for all legacy tables completed.
 - [x] Auth + user management migrated (P0).
 - [x] Event management migrated (P0).
 - [x] Attendance capture/locking migrated (P0).
 - [x] QR generation + scanner flow migrated (P0).
-- [ ] Notifications migrated (P1).
-- [ ] Analytics/reporting migrated (P1).
-- [ ] Diagnostics/admin tools migrated (P2).
+- [x] Notifications migrated (P1).
+- [x] Analytics/reporting migrated (P1).
+- [x] Diagnostics/admin tools migrated (P2).
 
 ## 1. Target Architecture (Decide First)
 
@@ -157,9 +157,9 @@
 2. [x] **Event management** (P0)
 3. [x] **Attendance capture/locking** (P0)
 4. [x] **QR generation + scanner flow** (P0)
-5. [ ] **Notifications** (P1)
-6. [ ] **Analytics/reporting** (P1)
-7. [ ] **Diagnostics/admin tools** (P2)
+5. [x] **Notifications** (P1)
+6. [x] **Analytics/reporting** (P1)
+7. [x] **Diagnostics/admin tools** (P2)
 
 For each feature:
 1. Document old behavior and edge cases.

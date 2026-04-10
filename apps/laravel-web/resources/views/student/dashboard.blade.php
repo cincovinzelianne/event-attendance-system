@@ -17,6 +17,9 @@
                         <a href="{{ route('student.qr.show') }}" class="inline-flex rounded-md bg-blue-700 px-4 py-2 text-sm text-white hover:bg-blue-600">
                             {{ __('Show My QR Token') }}
                         </a>
+                        <a href="{{ route('student.notifications.index') }}" class="inline-flex rounded-md bg-amber-700 px-4 py-2 text-sm text-white hover:bg-amber-600">
+                            {{ __('My Notifications') }}
+                        </a>
                     </div>
                 </div>
             </div>

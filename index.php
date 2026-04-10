@@ -1,8 +1,7 @@
 <?php
 /**
- * Main entry point for the EventAttendance system.
- * Redirects to the unified login page by default.
+ * Workspace root entrypoint.
+ * Forward traffic to the Laravel web app public bridge.
  */
-header("Location: login.php");
+header('Location: /public/');
 exit;
-?>
