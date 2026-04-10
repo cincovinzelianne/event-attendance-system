@@ -6,11 +6,11 @@
 - [x] Laravel web application initialized at `/apps/laravel-web`.
 - [x] Node.js dependencies installed for Vite + Tailwind CSS in Laravel app.
 - [x] Laravel domain folders created (`Admin`, `Student`, `Services`, `Repositories`, `views/admin`, `views/student`).
-- [ ] Migration inventory file completed and mapped with priorities.
+- [x] Migration inventory file completed and mapped with priorities.
 - [ ] ERD and canonical schema document completed.
 - [ ] MySQL-driven Laravel migrations for all legacy tables completed.
-- [ ] Auth + user management migrated (P0).
-- [ ] Event management migrated (P0).
+- [x] Auth + user management migrated (P0).
+- [x] Event management migrated (P0).
 - [ ] Attendance capture/locking migrated (P0).
 - [ ] QR generation + scanner flow migrated (P0).
 - [ ] Notifications migrated (P1).
@@ -153,8 +153,8 @@
 
 ## 8. Feature-by-Feature Migration Order
 
-1. [ ] **Auth + user management** (P0)
-2. [ ] **Event management** (P0)
+1. [x] **Auth + user management** (P0)
+2. [x] **Event management** (P0)
 3. [ ] **Attendance capture/locking** (P0)
 4. [ ] **QR generation + scanner flow** (P0)
 5. [ ] **Notifications** (P1)
