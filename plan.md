@@ -1,5 +1,22 @@
 # Migration Plan: Event Attendance System -> Laravel (PHP 8.4) + Node.js 22 + Tailwind CSS + MySQL
 
+## 0. Implementation Progress Tracker
+
+- [x] Repository folder scaffold created (`/apps`, `/docs`, `/scripts`, `/database`, `/legacy`).
+- [x] Laravel web application initialized at `/apps/laravel-web`.
+- [x] Node.js dependencies installed for Vite + Tailwind CSS in Laravel app.
+- [x] Laravel domain folders created (`Admin`, `Student`, `Services`, `Repositories`, `views/admin`, `views/student`).
+- [ ] Migration inventory file completed and mapped with priorities.
+- [ ] ERD and canonical schema document completed.
+- [ ] MySQL-driven Laravel migrations for all legacy tables completed.
+- [ ] Auth + user management migrated (P0).
+- [ ] Event management migrated (P0).
+- [ ] Attendance capture/locking migrated (P0).
+- [ ] QR generation + scanner flow migrated (P0).
+- [ ] Notifications migrated (P1).
+- [ ] Analytics/reporting migrated (P1).
+- [ ] Diagnostics/admin tools migrated (P2).
+
 ## 1. Target Architecture (Decide First)
 
 1. Use **Laravel (PHP 8.4)** for core backend and web app modules (auth, admin/student modules, REST APIs, DB migrations, queues).
@@ -136,13 +153,13 @@
 
 ## 8. Feature-by-Feature Migration Order
 
-1. **Auth + user management** (P0)
-2. **Event management** (P0)
-3. **Attendance capture/locking** (P0)
-4. **QR generation + scanner flow** (P0)
-5. **Notifications** (P1)
-6. **Analytics/reporting** (P1)
-7. **Diagnostics/admin tools** (P2)
+1. [ ] **Auth + user management** (P0)
+2. [ ] **Event management** (P0)
+3. [ ] **Attendance capture/locking** (P0)
+4. [ ] **QR generation + scanner flow** (P0)
+5. [ ] **Notifications** (P1)
+6. [ ] **Analytics/reporting** (P1)
+7. [ ] **Diagnostics/admin tools** (P2)
 
 For each feature:
 1. Document old behavior and edge cases.
